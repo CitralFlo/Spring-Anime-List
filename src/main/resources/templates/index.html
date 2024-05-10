@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Anime List</title>
+</head>
+<body>
+<h1>Watched animes!</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Rating</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="anime : ${animes}">
+        <td th:text="${anime.id}">1</td>
+        <td th:text="${anime.title}">Naruto</td>
+        <td th:text="${anime.rating}">8.5</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
