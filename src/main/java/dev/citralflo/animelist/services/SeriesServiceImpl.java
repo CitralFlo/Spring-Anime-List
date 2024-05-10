@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 import org.springframework.stereotype.Service;
 
-@Service
+// Postponed to later date
 public class SeriesServiceImpl implements SeriesService {
 
     private final SeriesRepository seriesRepository;
