@@ -6,7 +6,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import java.util.Set;
+import lombok.Data;
 
+@Data
 @Entity
 public class Genre {
 
@@ -19,27 +21,4 @@ public class Genre {
     @ManyToMany(mappedBy = "genres")
     private Set<Series> series;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<Series> getSeries() {
-        return series;
-    }
-
-    public void setSeries(Set<Series> series) {
-        this.series = series;
-    }
 }

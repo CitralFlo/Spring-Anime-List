@@ -10,11 +10,13 @@ import dev.citralflo.animelist.repositories.GenreRepository;
 import dev.citralflo.animelist.repositories.SeriesRepository;
 import dev.citralflo.animelist.repositories.VoiceActorRepository;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
+@Slf4j
 public class DataLoader implements CommandLineRunner {
 
     private final SeriesRepository seriesRepository;
@@ -31,7 +33,7 @@ public class DataLoader implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
         this.loadData();
-        System.out.println("DataLoader.run");
+        log.debug("DataLoader.run");
     }
 
     private void loadData() {

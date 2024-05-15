@@ -5,8 +5,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 
+@Data
 @Entity
 public class Character {
 
@@ -21,6 +24,7 @@ public class Character {
     private VoiceActor voiceActor;
 
     @ManyToOne
+    @EqualsAndHashCode.Exclude
     private Series series;
 
     public Character(String name, String imageUrl, VoiceActor voiceActor, Series series) {
@@ -40,35 +44,4 @@ public class Character {
 
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Series getSeries() {
-        return series;
-    }
-
-    public void setSeries(Series series) {
-        this.series = series;
-    }
 }

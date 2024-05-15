@@ -3,7 +3,10 @@ package dev.citralflo.animelist.model;
 import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@Data
 @Entity
 public class Series {
 
@@ -20,6 +23,7 @@ public class Series {
     private String imageUrl;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @EqualsAndHashCode.Exclude
     private Note note;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "series")
@@ -28,7 +32,7 @@ public class Series {
     @Enumerated(value = EnumType.STRING)
     private Rating rating;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "series_genre",
             joinColumns = @JoinColumn(name = "series_id"),
@@ -36,49 +40,6 @@ public class Series {
     )
     private Set<Genre> genres = new HashSet<>();
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Note getNote() {
-        return note;
-    }
 
     public void setNote(Note note) {
         this.note = note;
@@ -89,29 +50,4 @@ public class Series {
         characters.add(character);
         character.setSeries(this);
         return this;
-    }
-
-    public Set<Character> getCharacters() {
-        return characters;
-    }
-
-    public void setCharacters(Set<Character> characters) {
-        this.characters = characters;
-    }
-
-    public Rating getRating() {
-        return rating;
-    }
-
-    public void setRating(Rating rating) {
-        this.rating = rating;
-    }
-
-    public Set<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(Set<Genre> genres) {
-        this.genres = genres;
-    }
-}
+    }}
