@@ -1,7 +1,6 @@
 package dev.citralflo.animelist.services;
 
 import dev.citralflo.animelist.model.Series;
-import dev.citralflo.animelist.repositories.SeriesRepository;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,9 +14,9 @@ import static org.mockito.Mockito.when;
 
 class SeriesServiceTest {
 
-    SeriesService seriesService;
+    SeriesRepository seriesService;
     @Mock
-    SeriesRepository seriesRepository;
+    dev.citralflo.animelist.repositories.SeriesRepository seriesRepository;
 
     @BeforeEach
     void setUp() {
@@ -29,7 +28,7 @@ class SeriesServiceTest {
     @Test
     void getSeries() {
         Series anime = new Series();
-        HashSet seriesData = new HashSet();
+        HashSet<Series> seriesData = new HashSet<>();
         seriesData.add(anime);
 
         when(seriesRepository.findAll()).thenReturn(seriesData);
