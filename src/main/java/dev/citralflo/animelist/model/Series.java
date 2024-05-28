@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @Entity
@@ -24,9 +25,11 @@ public class Series {
 
     @OneToOne(cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Note note;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "series")
+    @ToString.Exclude
     private Set<Character> characters = new HashSet<>();
 
     @Enumerated(value = EnumType.STRING)
@@ -50,4 +53,6 @@ public class Series {
         characters.add(character);
         character.setSeries(this);
         return this;
-    }}
+    }
+
+}

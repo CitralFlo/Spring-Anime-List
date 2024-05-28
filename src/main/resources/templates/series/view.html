@@ -22,131 +22,56 @@
     ></script>
 </head>
 <body>
-<div class="container-fluid" style="margin-top: 20px">
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel-group">
-                <div class="card border " style="margin: 20px 0">
-                    <div class="card-header">
-                        <h7 class="card-title" th:text="${series.title}">Anime Description Here!</h7>
-                    </div>
-                    <div class="card-body">
-                        <div class="row justify-content-center">
-                            <div class="col-md-3">
-                                <h7>Categories:</h7>
-                            </div>
-                            <div class="col-md-9">
-                                <ul>
-                                    <li>cat one</li>
-                                    <li>cat two</li>
-                                    <li>cat three</li>
-                                </ul>
-                            </div>
+<div class="container-fluid font-monospace mt-4">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-8 card-title align-content-center">
+                            <!--/+@thymesVar id="anime" type="dev.citralflo.animelist.model.Anime"-->
+                            <h2 th:text="${series.title}">Title</h2>
                         </div>
-                        <div class="row justify-content-center">
-                            <div class="col-md-3">
-                                <h7>Prep Time:</h7>
-                            </div>
-                            <div class="col-md-3">
-                                <p>30 min</p>
-                            </div>
-                            <div class="col-md-3">
-                                <h7>Difficulty:</h7>
-                            </div>
-                            <div class="col-md-3">
-                                <p>Easy</p>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-md-3">
-                                <h7>Cooktime:</h7>
-                            </div>
-                            <div class="col-md-3">
-                                <p>30 min</p>
-                            </div>
-                            <div class="col-md-3">
-                                <h7>Servings:</h7>
-                            </div>
-                            <div class="col-md-3">
-                                <p>4</p>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-md-3">
-                                <h7>Source:</h7>
-                            </div>
-                            <div class="col-md-3">
-                                <p>30 min</p>
-                            </div>
-                            <div class="col-md-3">
-                                <h7>URL:</h7>
-                            </div>
-                            <div class="col-md-3">
-                                <p>http://www.example.com</p>
-                            </div>
+                        <div class="col-md-4 text-right">
+                            <h2>Rating: <span th:text="${series.rating}">Rating</span></h2>
                         </div>
                     </div>
                 </div>
-                <div class="card border " style="margin: 20px 0;">
-                    <div class="card-header">
-                        <h7 class="card-title">Ingredients</h7>
-                    </div>
-                    <div class="card-body">
-                        <div class="row justify-content-center">
-                            <div class="col-md-12">
-                                <ul>
-                                    <li>1 Cup of milk</li>
-                                    <li>1 Teaspoon of chocolate</li>
-                                    <li>1 Teaspoon of Sugar</li>
-                                </ul>
-                            </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3">
+                            <img th:src="${series.imageUrl}" alt="Img" class="img-fluid">
+                        </div>
+                        <div class="col-9">
+                            <h5>Description:</h5>
+                            <p th:text="${series.description}">Description goes here...</p>
                         </div>
                     </div>
-                </div>
-                <div class="card card-primary border" style="margin: 20px 0;">
-                    <div class="card-header">
-                        <h7 class="card-title">Directions</h7>
-                    </div>
-                    <div class="card-body">
-                        <div class="row justify-content-center">
-                            <div class="col-md-12">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                    dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                    nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                    quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
-                                    nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
-                                    justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.
-                                    Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,
-                                    porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in,
-                                    viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet.
-                                    Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur
-                                    ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus
-                                    eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed
-                                    ipsum.</p>
-                            </div>
+                    <div class="row mt-3 border-2">
+                        <div class="col-3 border-1">
+                            <h5>Genres:</h5>
+                            <ul class="list-group m-2">
+                                <li class="list-group-item" th:each="genre : ${series.getGenres()}" th:text="${genre.name}">GENRE</li>
+                            </ul>
                         </div>
-                    </div>
-                </div>
-                <div class="card card-primary border" style="margin: 20px 0;">
-                    <div class="card-header text-light">
-                        <h7 class="card-title">Notes</h7>
-                    </div>
-                    <div class="card-body">
-                        <div class="row justify-content-center">
-                            <div class="col-md-12">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
-                                    dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
-                                    nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
-                                    quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
-                                    nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
-                                    justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.
-                                    Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,
-                                    porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in,
-                                    viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet.
-                                    Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur
-                                    ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus
-                                    eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed
-                                    ipsum.</p>
+                        <div class="col-9 ">
+                            <h5>Characters:</h5>
+                            <div class="d-flex flex-wrap">
+                                <div class="col-md-3 card m-2" th:each="character : ${series.characters}">
+                                    <div class="card-header">
+                                        <p class="card-title text-center" th:text="${character.name}">Character</p>
+                                    </div>
+                                    <div class="card-body d-flex flex-column align-items-center">
+                                        <img th:src="${character.imageUrl}" alt="Character Image"
+                                             class="img-thumbnail object-fit-cover"
+                                             style="width: 150px; height: 150px;">
+                                        <h6 class="text-center mt-2">Voice Actor:</h6>
+                                        <p class="card-footer text-center"
+                                           th:text="${character.voiceActor.name}">
+                                            Voice Actor
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -155,10 +80,20 @@
         </div>
     </div>
 </div>
+
+<div class="container-fluid mt-4">
+    <div class="card col-sm-5 offset-1">
+        <div class="card-header">
+            <h2 class="card-title">Notes</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-10">
+                    <span class="form-control" rows="5" th:text="${series.note.note}">Notes</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
-<style>
-    h7 {
-        font-weight: bold;
-    }
-</style>

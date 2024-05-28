@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
@@ -17,6 +18,7 @@ public class Note {
     private Long id;
 
     @OneToOne
+    @EqualsAndHashCode.Exclude
     private Series series;
 
     @Lob

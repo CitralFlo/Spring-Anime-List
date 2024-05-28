@@ -7,8 +7,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import java.util.Set;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(exclude = "series")
 @Entity
 public class Genre {
 

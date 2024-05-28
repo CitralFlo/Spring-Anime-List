@@ -1,5 +1,6 @@
 package dev.citralflo.animelist.contollers;
 
+import dev.citralflo.animelist.model.Genre;
 import dev.citralflo.animelist.model.Series;
 import dev.citralflo.animelist.services.SeriesService;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -32,11 +34,22 @@ class SeriesControllerTest {
     @Test
     void showById() throws Exception {
         Series series = new Series();
+
+        Genre genre = new Genre();
+        genre.setId(1L);
+        genre.setName("Action");
+
+
+        series.getGenres().add(genre);
         series.setId(1L);
 
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
         when(seriesService.getSeriesById(1L)).thenReturn(series);
+
+        //check if genre name is passed
+
+        assertEquals("Action", series.getGenres().iterator().next().getName());
 
         mockMvc.perform(get("/series/view/1"))
                 .andExpect(status().isOk())
