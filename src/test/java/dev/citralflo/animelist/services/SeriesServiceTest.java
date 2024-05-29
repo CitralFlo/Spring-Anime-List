@@ -1,6 +1,9 @@
 package dev.citralflo.animelist.services;
 
+import dev.citralflo.animelist.converters.command2object.SeriesCommandToSeriesConverter;
+import dev.citralflo.animelist.converters.object2command.SeriesToSeriesCommandConverter;
 import dev.citralflo.animelist.model.Series;
+import dev.citralflo.animelist.repositories.SeriesRepository;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,13 +19,23 @@ class SeriesServiceTest {
 
     SeriesService seriesService;
     @Mock
-    dev.citralflo.animelist.repositories.SeriesRepository seriesRepository;
+    SeriesRepository seriesRepository;
+
+    @Mock
+    SeriesCommandToSeriesConverter seriesCommandToSeriesConverter;
+
+    @Mock
+    SeriesToSeriesCommandConverter seriesToSeriesCommandConverter;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        seriesService = new SeriesServiceImpl(seriesRepository);
+        seriesService = new SeriesServiceImpl(
+            seriesRepository,
+            seriesToSeriesCommandConverter,
+            seriesCommandToSeriesConverter
+        );
     }
 
     @Test
