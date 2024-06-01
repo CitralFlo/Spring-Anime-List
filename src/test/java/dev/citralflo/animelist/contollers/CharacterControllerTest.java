@@ -69,9 +69,9 @@ class CharacterControllerTest {
         when(seriesService.getSeriesCommandById(anyLong())).thenReturn(seriesCommand);
 
         //given
-        mockMvc.perform(get("/series/1/character/1/show"))
+        mockMvc.perform(get("/series/1/character/1/view"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("series/character/show"))
+                .andExpect(view().name("series/character/view"))
                 .andExpect(model().attributeExists("character"));
     }
 }
