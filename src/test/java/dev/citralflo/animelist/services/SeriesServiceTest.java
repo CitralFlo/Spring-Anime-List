@@ -72,6 +72,8 @@ class SeriesServiceTest {
     void deleteById() {
         Long id = 1L;
 
+
+
         assertTrue(seriesService.deleteSeriesById(id));
 
         verify(seriesRepository, times(1)).deleteById(id);

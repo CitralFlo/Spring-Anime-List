@@ -67,18 +67,7 @@ public class SeriesServiceImpl implements SeriesService {
     @Override
     @Transactional
     public boolean deleteSeriesById(Long id) {
-        Optional<Series> optionalSeries = seriesRepository.findById(id);
-
-        if (optionalSeries.isEmpty()) {
-            return true;
-        }
-
-        Series series = optionalSeries.get();
-
-        series.getGenres().clear();
-        series.getCharacters().forEach(character -> character.setVoiceActor(null));
-
-        seriesRepository.delete(series);
+        seriesRepository.deleteById(id);
         return true;
     }
 }
