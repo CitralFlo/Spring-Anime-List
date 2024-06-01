@@ -51,27 +51,34 @@
                         <div class="col-3 border-1">
                             <h5>Genres:</h5>
                             <ul class="list-group m-2">
-                                <li class="list-group-item" th:each="genre : ${series.getGenres()}" th:text="${genre.name}">GENRE</li>
+                                <li class="list-group-item" th:each="genre : ${series.getGenres()}"
+                                    th:text="${genre.name}">GENRE
+                                </li>
                             </ul>
                         </div>
                         <div class="col-9 ">
                             <h5>Characters:</h5>
                             <div class="d-flex flex-wrap">
+
                                 <div class="col-md-3 card m-2" th:each="character : ${series.characters}">
-                                    <div class="card-header">
-                                        <p class="card-title text-center" th:text="${character.name}">Character</p>
-                                    </div>
-                                    <div class="card-body d-flex flex-column align-items-center">
-                                        <img th:src="${character.imageUrl}" alt="Character Image"
-                                             class="img-thumbnail object-fit-cover"
-                                             style="width: 150px; height: 150px;">
-                                        <h6 class="text-center mt-2">Voice Actor:</h6>
-                                        <p class="card-footer text-center"
-                                           th:text="${character.voiceActor.name}">
-                                            Voice Actor
-                                        </p>
-                                    </div>
+                                    <a th:href="@{'/series/' + ${series.id.longValue()} + '/character/' + ${character.getId().longValue()} + '/view'}">
+                                        <div class="card-header">
+                                            <p class="card-title text-center" th:text="${character.name}">Character</p>
+                                        </div>
+                                        <div class="card-body d-flex flex-column align-items-center">
+                                            <img th:src="${character.imageUrl}" alt="Character Image"
+                                                 class="img-thumbnail object-fit-cover"
+                                                 style="width: 150px; height: 150px;">
+                                            <h6 class="text-center mt-2">Voice Actor:</h6>
+                                            <p class="card-footer text-center"
+                                               th:text="${character.voiceActor.name}">
+                                                Voice Actor
+                                            </p>
+                                        </div>
+                                    </a>
                                 </div>
+
+
                             </div>
                         </div>
                     </div>

@@ -32,12 +32,13 @@ public class CharacterController {
     }
 
     @GetMapping
-    @RequestMapping("/series/{seriesId}/character/{characterId}/show")
+    @RequestMapping("/series/{seriesId}/character/{characterId}/view")
     public String showCharacter(@PathVariable String seriesId, @PathVariable String characterId, Model model) {
         log.debug("Getting character" + characterId + " for series" + seriesId);
 
         model.addAttribute("character", characterService.findCharacterBySeriesIdAndCharacterId(Long.valueOf(seriesId), Long.valueOf(characterId)));
+        model.addAttribute("series", seriesService.getSeriesCommandById(Long.valueOf(seriesId)));
 
-        return "series/character/show";
+        return "series/character/view";
     }
 }
