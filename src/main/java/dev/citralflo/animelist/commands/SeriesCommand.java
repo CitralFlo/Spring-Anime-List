@@ -1,8 +1,8 @@
 package dev.citralflo.animelist.commands;
 
 import dev.citralflo.animelist.model.Rating;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,8 +17,8 @@ public class SeriesCommand {
     private String imageUrl;
     private String url;
     private NoteCommand note;
-    private Set<CharacterCommand> characters = new HashSet<>();;
+    private List<CharacterCommand> characters = new ArrayList<>();
     private Rating rating;
-    private Set<GenreCommand> genres = new HashSet<>();
+    private List<GenreCommand> genres = new ArrayList<>();
 
 }

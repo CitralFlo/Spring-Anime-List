@@ -46,8 +46,11 @@
                             <td th:text="${anime.id}">1</td>
                             <td th:text="${anime.title}">Naruto</td>
                             <td th:text="${anime.rating}">8.5</td>
-                            <td>
-                                <a th:href="@{'/series/view/' + ${anime.id}}" class="btn btn-primary">View</a>
+                            <td><a class="btn btn-primary" href="#"
+                                   th:href="@{'/series/' + ${anime.id.longValue()} + '/view'}">View</a>
+                            </td>
+                            <td><a class="btn btn-primary" href="#"
+                                   th:href="@{'/series/' + ${anime.id.longValue()} + '/update'}">Update</a>
                             </td>
                         </tr>
                         </tbody>

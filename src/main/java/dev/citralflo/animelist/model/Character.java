@@ -1,5 +1,6 @@
 package dev.citralflo.animelist.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +21,7 @@ public class Character {
     private String name;
     private String imageUrl;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private VoiceActor voiceActor;
 
     @ManyToOne

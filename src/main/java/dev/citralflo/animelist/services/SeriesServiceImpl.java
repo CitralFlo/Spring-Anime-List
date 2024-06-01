@@ -56,4 +56,10 @@ public class SeriesServiceImpl implements SeriesService {
         log.debug("Saved SeriesId:" + savedSeries.getId());
         return seriesToSeriesCommandConverter.convert(savedSeries);
     }
+
+    @Override
+    @Transactional
+    public SeriesCommand getSeriesCommandById(Long id) {
+        return seriesToSeriesCommandConverter.convert(getSeriesById(id));
+    }
 }

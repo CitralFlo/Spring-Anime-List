@@ -5,6 +5,7 @@ import dev.citralflo.animelist.commands.SeriesCommand;
 import dev.citralflo.animelist.model.Note;
 import dev.citralflo.animelist.model.Rating;
 import dev.citralflo.animelist.model.Series;
+import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -164,7 +165,7 @@ class SeriesToSeriesCommandConverterTest {
         assertNotNull(seriesCommand.getCharacters());
         assertEquals(1, seriesCommand.getCharacters().size());
 
-        Set<CharacterCommand> characters = seriesCommand.getCharacters();
+        List<CharacterCommand> characters = seriesCommand.getCharacters();
         assertNotNull(characters);
         assertEquals(1, characters.size());
         characters.forEach(
@@ -223,7 +224,7 @@ class SeriesToSeriesCommandConverterTest {
         assertNotNull(seriesCommand.getCharacters());
         assertEquals(1, seriesCommand.getCharacters().size());
 
-        Set<CharacterCommand> characters = seriesCommand.getCharacters();
+        List<CharacterCommand> characters = seriesCommand.getCharacters();
         assertNotNull(characters);
         assertEquals(1, characters.size());
         characters.forEach(

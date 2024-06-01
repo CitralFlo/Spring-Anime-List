@@ -11,4 +11,6 @@ public interface SeriesService {
     Series getSeriesById(Long id);
 
     SeriesCommand saveSeriesCommand(SeriesCommand command);
+
+    SeriesCommand getSeriesCommandById(Long id);
 }
