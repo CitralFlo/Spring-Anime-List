@@ -41,7 +41,8 @@ public class SeriesServiceImpl implements SeriesService {
 
         if (seriesOptional.isPresent()) {
             return seriesOptional.get();
-        } else {
+        }
+        else {
             throw new RuntimeException("Series not found");
         }
     }
@@ -66,7 +67,13 @@ public class SeriesServiceImpl implements SeriesService {
     @Override
     @Transactional
     public boolean deleteSeriesById(Long id) {
-        Series series = seriesRepository.findById(id).orElseThrow();
+        Optional<Series> optionalSeries = seriesRepository.findById(id);
+
+        if (optionalSeries.isEmpty()) {
+            return true;
+        }
+
+        Series series = optionalSeries.get();
 
         series.getGenres().clear();
         series.getCharacters().forEach(character -> character.setVoiceActor(null));
