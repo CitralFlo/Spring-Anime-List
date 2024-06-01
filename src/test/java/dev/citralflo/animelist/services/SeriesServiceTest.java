@@ -67,4 +67,13 @@ class SeriesServiceTest {
         assertEquals(1, series.size());
         verify(seriesRepository, times(1)).findAll();
     }
+
+    @Test
+    void deleteById() {
+        Long id = 1L;
+
+        assertTrue(seriesService.deleteSeriesById(id));
+
+        verify(seriesRepository, times(1)).deleteById(id);
+    }
 }

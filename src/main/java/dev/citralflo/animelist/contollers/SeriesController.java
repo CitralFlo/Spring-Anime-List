@@ -5,6 +5,7 @@ import dev.citralflo.animelist.services.SeriesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,6 +40,15 @@ public class SeriesController {
         model.addAttribute("series", seriesService.getSeriesCommandById(Long.valueOf(id)));
 
         return "series/form";
+    }
+
+    @GetMapping
+    @RequestMapping("/series/{id}/delete")
+    public String deleteById(@PathVariable String id) {
+        log.debug("Deleting id: " + id);
+
+        seriesService.deleteSeriesById(Long.valueOf(id));
+        return "redirect:/";
     }
 
     @PostMapping("series/save")

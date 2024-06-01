@@ -62,4 +62,16 @@ public class SeriesServiceImpl implements SeriesService {
     public SeriesCommand getSeriesCommandById(Long id) {
         return seriesToSeriesCommandConverter.convert(getSeriesById(id));
     }
+
+    @Override
+    @Transactional
+    public boolean deleteSeriesById(Long id) {
+        Series series = seriesRepository.findById(id).orElseThrow();
+
+        series.getGenres().clear();
+        series.getCharacters().forEach(character -> character.setVoiceActor(null));
+
+        seriesRepository.delete(series);
+        return true;
+    }
 }

@@ -109,4 +109,13 @@ class SeriesControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/series/2/view"));
     }
+
+    @Test
+    void testDeleteAction() throws Exception {
+        mockMvc.perform(get("/series/1/delete"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/"));
+
+        verify(seriesService).deleteSeriesById(1L);
+    }
 }

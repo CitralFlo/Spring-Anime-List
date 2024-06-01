@@ -13,4 +13,6 @@ public interface SeriesService {
     SeriesCommand saveSeriesCommand(SeriesCommand command);
 
     SeriesCommand getSeriesCommandById(Long id);
+
+    boolean deleteSeriesById(Long id);
 }

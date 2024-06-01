@@ -52,6 +52,9 @@
                             <td><a class="btn btn-primary" href="#"
                                    th:href="@{'/series/' + ${anime.id.longValue()} + '/update'}">Update</a>
                             </td>
+                            <td><a class="btn btn-danger" href="#"
+                                   th:href="@{'/series/' + ${anime.id.longValue()} + '/delete'}">Delete</a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
