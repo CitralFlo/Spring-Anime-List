@@ -28,6 +28,10 @@ public class CharacterToCharacterCommandConverter implements Converter<Character
         characterCommand.setName(character.getName());
         characterCommand.setImageUrl(character.getImageUrl());
 
+        if (character.getSeries() != null) {
+            characterCommand.setSeriesId(character.getSeries().getId());
+        }
+
         if (character.getVoiceActor() != null) {
             characterCommand.setVoiceActor(this.voiceActorToVoiceActorCommandConverter.convert(character.getVoiceActor()));
         }

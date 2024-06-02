@@ -44,11 +44,14 @@
                                 <h6>ID:</h6>
                                 <p th="${character.id}"></p>
                                 <a href="#" th:href="@{'/series/' + ${series.id.longValue()} + '/view'}">
-                                <p class="card-footer text-center" th:text="${series.title}">
-                                    Origin Series
-                                </p>
+                                    <p class="card-footer text-center" th:text="${series.title}">
+                                        Origin Series
+                                    </p>
                                 </a>
                             </div>
+                            <a href="#" th:href="@{'/series/' + ${series.id.longValue()} + '/character/' + ${character.id.longValue()} + '/update'}">
+                                <button class="btn btn-primary">Edit</button>
+                            </a>
                         </div>
                     </div>
                 </div>

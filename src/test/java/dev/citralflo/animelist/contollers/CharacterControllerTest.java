@@ -2,10 +2,12 @@ package dev.citralflo.animelist.contollers;
 
 import dev.citralflo.animelist.commands.CharacterCommand;
 import dev.citralflo.animelist.commands.SeriesCommand;
+import dev.citralflo.animelist.commands.VoiceActorCommand;
 import dev.citralflo.animelist.model.Character;
 import dev.citralflo.animelist.model.VoiceActor;
 import dev.citralflo.animelist.services.CharacterService;
 import dev.citralflo.animelist.services.SeriesService;
+import dev.citralflo.animelist.services.VoiceActorService;
 import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +32,9 @@ class CharacterControllerTest {
     @Mock
     CharacterService characterService;
 
+    @Mock
+    VoiceActorService voiceActorService;
+
     CharacterController characterController;
 
     MockMvc mockMvc;
@@ -38,7 +43,7 @@ class CharacterControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        characterController = new CharacterController(seriesService, characterService);
+        characterController = new CharacterController(seriesService, characterService, voiceActorService);
         mockMvc = MockMvcBuilders.standaloneSetup(characterController).build();
     }
 
@@ -73,5 +78,24 @@ class CharacterControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("series/character/view"))
                 .andExpect(model().attributeExists("character"));
+    }
+
+    @Test
+    void updateCharacter() throws Exception {
+        //given
+        SeriesCommand seriesCommand = new SeriesCommand();
+        seriesCommand.setCharacters(List.of(new CharacterCommand()));
+
+        //when
+        when(characterService.findCharacterBySeriesIdAndCharacterId(anyLong(), anyLong())).thenReturn(seriesCommand.getCharacters().get(0));
+        when(voiceActorService.listVoiceActors()).thenReturn(Set.of(new VoiceActorCommand()));
+        when(seriesService.getSeriesCommandById(anyLong())).thenReturn(seriesCommand);
+
+        //given
+        mockMvc.perform(get("/series/1/character/1/update"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("series/character/form"))
+                .andExpect(model().attributeExists("character"))
+                .andExpect(model().attributeExists("allVoiceActors"));
     }
 }

@@ -9,6 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CharacterCommand {
     private Long id;
+    private Long seriesId;
     private String name;
     private String imageUrl;
     private VoiceActorCommand voiceActor;

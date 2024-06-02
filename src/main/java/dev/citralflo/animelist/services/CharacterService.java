@@ -5,4 +5,6 @@ import dev.citralflo.animelist.commands.CharacterCommand;
 public interface CharacterService {
 
     CharacterCommand findCharacterBySeriesIdAndCharacterId(Long seriesId, Long characterId);
+
+    CharacterCommand saveCharacterCommand(CharacterCommand characterCommand);
 }
