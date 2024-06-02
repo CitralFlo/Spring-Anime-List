@@ -28,7 +28,7 @@ public class Series {
     @ToString.Exclude
     private Note note;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "series")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "series", orphanRemoval = true)
     @ToString.Exclude
     private Set<Character> characters = new HashSet<>();
 

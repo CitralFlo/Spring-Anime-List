@@ -42,7 +42,8 @@
                                 <p class="card-footer text-center" th:text="${character.voiceActor.name}">
                                     Voice Actor
                                 </p>
-                                <a th:href="@{'/series/' + ${series.id.longValue()} + '/character/' + ${character.getId().longValue()} + '/view'}" class="btn btn-primary mt-2">
+                                <a th:href="@{'/series/' + ${series.id.longValue()} + '/character/' + ${character.getId().longValue()} + '/view'}"
+                                   class="btn btn-primary mt-2">
                                     View Character
                                 </a>
                                 <h6>ID:</h6>
@@ -50,6 +51,16 @@
                                 <p class="card-footer text-center" th:text="${series.title}">
                                     Origin Series
                                 </p>
+
+                                <a th:href="@{'/series/' + ${series.id.longValue()} + '/character/' + ${character.getId().longValue()} + '/update'}"
+                                   class="btn btn-primary mt-2">
+                                    Edit
+                                </a>
+
+                                <a th:href="@{'/series/' + ${series.id.longValue()} + '/character/' + ${character.getId().longValue()} + '/delete'}"
+                                   class="btn btn-danger mt-2">
+                                    Delete
+                                </a>
                             </div>
                         </div>
                     </div>

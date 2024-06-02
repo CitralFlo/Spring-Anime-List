@@ -7,6 +7,7 @@ import dev.citralflo.animelist.model.Character;
 import dev.citralflo.animelist.model.Series;
 import dev.citralflo.animelist.repositories.SeriesRepository;
 import java.util.Optional;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -37,9 +38,9 @@ public class CharacterServiceImpl implements CharacterService {
         Series series = seriesOptional.get();
 
         Optional<CharacterCommand> characterCommandOptional = series.getCharacters().stream()
-                .filter(character -> character.getId().equals(characterId))
-                .map(characterToCharacterCommandConverter::convert)
-                .findFirst();
+            .filter(character -> character.getId().equals(characterId))
+            .map(characterToCharacterCommandConverter::convert)
+            .findFirst();
 
         if (characterCommandOptional.isEmpty()) {
             log.error("Character not found");
@@ -59,15 +60,16 @@ public class CharacterServiceImpl implements CharacterService {
 
         Series series = seriesOptional.get();
         Optional<Character> characterOptional = series.getCharacters().stream()
-                .filter(character -> character.getId().equals(characterCommand.getId()))
-                .findFirst();
+            .filter(character -> character.getId().equals(characterCommand.getId()))
+            .findFirst();
 
         if (characterOptional.isPresent()) {
             Character character = characterOptional.get();
             character.setName(characterCommand.getName());
             character.setImageUrl(characterCommand.getImageUrl());
             character.setVoiceActor(characterCommandToCharacterConverter.convert(characterCommand).getVoiceActor());
-        } else {
+        }
+        else {
             Character character = characterCommandToCharacterConverter.convert(characterCommand);
             series.addCharacter(character);
         }
@@ -85,6 +87,35 @@ public class CharacterServiceImpl implements CharacterService {
         }
 
         return characterToCharacterCommandConverter.convert(savedCharacterOptional.get());
+    }
+
+    @Override
+    public void deleteCharacterBySeriesIdAndCharacterID(Long seriesId, Long characterId) {
+        Optional<Series> seriesOptional = seriesRepository.findById(seriesId);
+
+        if (seriesOptional.isPresent()) {
+            Series series = seriesOptional.get();
+            log.debug("Series found");
+
+            Optional<Character> characterOptional = series.getCharacters().stream()
+                .filter(character -> character.getId().equals(characterId))
+                .findFirst();
+
+            if (characterOptional.isPresent()) {
+                Character character = characterOptional.get();
+                log.debug("Character found");
+                series.getCharacters().remove(character);
+                seriesRepository.save(series);
+
+                log.debug("Character deleted");
+            }
+            else {
+                log.error("Character not found");
+            }
+        }
+        else {
+            log.error("Series not found");
+        }
     }
 
 }

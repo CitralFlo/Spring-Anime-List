@@ -119,4 +119,13 @@ class CharacterControllerTest {
                 .andExpect(model().attributeExists("character"))
                 .andExpect(model().attributeExists("allVoiceActors"));
     }
+
+    @Test
+    void deleteCharacter() throws Exception {
+        mockMvc.perform(get("/series/1/character/1/delete"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/series/1/characters"));
+
+        verify(characterService, times(1)).deleteCharacterBySeriesIdAndCharacterID(anyLong(), anyLong());
+    }
 }

@@ -30,7 +30,7 @@ public class CharacterController {
     @GetMapping
     @RequestMapping("/series/{seriesId}/characters")
     public String listCharacters(@PathVariable String seriesId, Model model) {
-        log.debug("Getting character list" + seriesId);
+        log.debug("Getting character list " + seriesId);
 
         model.addAttribute("series", seriesService.getSeriesCommandById(Long.valueOf(seriesId)));
 
@@ -78,6 +78,16 @@ public class CharacterController {
         model.addAttribute("allVoiceActors", voiceActorService.listVoiceActors());
 
         return "series/character/form";
+    }
+
+    @GetMapping
+    @RequestMapping("/series/{seriesId}/character/{characterId}/delete")
+    public String deleteCharacter(@PathVariable String seriesId, @PathVariable String characterId) {
+        log.debug("Deleting character" + characterId + " for series" + seriesId);
+
+        characterService.deleteCharacterBySeriesIdAndCharacterID(Long.valueOf(seriesId), Long.valueOf(characterId));
+
+        return "redirect:/series/" + seriesId + "/characters";
     }
 
 }
