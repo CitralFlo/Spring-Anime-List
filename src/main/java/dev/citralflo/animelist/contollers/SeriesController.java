@@ -21,29 +21,28 @@ public class SeriesController {
         this.seriesService = seriesRepository;
     }
 
-    @RequestMapping("/series/{id}/view")
+    @GetMapping("/series/{id}/view")
     public String showById(@PathVariable String id, Model model) {
         model.addAttribute("series", seriesService.getSeriesById(Long.valueOf(id)));
 
         return "series/view";
     }
 
-    @RequestMapping("/series/new")
+    @GetMapping("/series/new")
     public String newSeries(Model model) {
         model.addAttribute("series", new SeriesCommand());
 
         return "series/form";
     }
 
-    @RequestMapping("series/{id}/update")
+    @GetMapping("series/{id}/update")
     public String updateSeries(@PathVariable String id, Model model) {
         model.addAttribute("series", seriesService.getSeriesCommandById(Long.valueOf(id)));
 
         return "series/form";
     }
 
-    @GetMapping
-    @RequestMapping("/series/{id}/delete")
+    @GetMapping("/series/{id}/delete")
     public String deleteById(@PathVariable String id) {
         log.debug("Deleting id: " + id);
 

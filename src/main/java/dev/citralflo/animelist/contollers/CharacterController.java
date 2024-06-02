@@ -27,8 +27,7 @@ public class CharacterController {
         this.voiceActorService = voiceActorService;
     }
 
-    @GetMapping
-    @RequestMapping("/series/{seriesId}/characters")
+    @GetMapping("/series/{seriesId}/characters")
     public String listCharacters(@PathVariable String seriesId, Model model) {
         log.debug("Getting character list " + seriesId);
 
@@ -37,8 +36,7 @@ public class CharacterController {
         return "series/character/list";
     }
 
-    @GetMapping
-    @RequestMapping("/series/{seriesId}/character/{characterId}/view")
+    @GetMapping("/series/{seriesId}/character/{characterId}/view")
     public String showCharacter(@PathVariable String seriesId, @PathVariable String characterId, Model model) {
         log.debug("Getting character" + characterId + " for series" + seriesId);
 
@@ -48,8 +46,7 @@ public class CharacterController {
         return "series/character/view";
     }
 
-    @GetMapping
-    @RequestMapping("/series/{seriesId}/character/{characterId}/update")
+    @GetMapping("/series/{seriesId}/character/{characterId}/update")
     public String updateCharacter(@PathVariable String seriesId, @PathVariable String characterId, Model model) {
         log.debug("Updating character" + characterId + " for series" + seriesId);
 
@@ -66,8 +63,7 @@ public class CharacterController {
         return "redirect:/series/" + command.getSeriesId() + "/character/" + savedCommand.getId() + "/view";
     }
 
-    @GetMapping
-    @RequestMapping("/series/{seriesId}/character/new")
+    @GetMapping("/series/{seriesId}/character/new")
     public String newCharacter(@PathVariable String seriesId, Model model) {
         log.debug("Creating new character for series" + seriesId);
 
@@ -80,8 +76,7 @@ public class CharacterController {
         return "series/character/form";
     }
 
-    @GetMapping
-    @RequestMapping("/series/{seriesId}/character/{characterId}/delete")
+    @GetMapping("/series/{seriesId}/character/{characterId}/delete")
     public String deleteCharacter(@PathVariable String seriesId, @PathVariable String characterId) {
         log.debug("Deleting character" + characterId + " for series" + seriesId);
 
