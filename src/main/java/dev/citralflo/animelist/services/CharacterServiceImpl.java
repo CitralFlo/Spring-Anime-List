@@ -18,6 +18,7 @@ public class CharacterServiceImpl implements CharacterService {
     private final SeriesRepository seriesRepository;
     private final CharacterCommandToCharacterConverter characterCommandToCharacterConverter;
 
+
     public CharacterServiceImpl(CharacterToCharacterCommandConverter characterToCharacterCommandConverter, SeriesRepository seriesRepository, CharacterCommandToCharacterConverter characterCommandToCharacterConverter) {
         this.characterToCharacterCommandConverter = characterToCharacterCommandConverter;
         this.seriesRepository = seriesRepository;
@@ -54,30 +55,36 @@ public class CharacterServiceImpl implements CharacterService {
         if (seriesOptional.isEmpty()) {
             log.error("Series not found");
             return new CharacterCommand();
-        } else {
-            Series series = seriesOptional.get();
-
-            Optional<Character> characterOptional = series.getCharacters().stream()
-                    .filter(character -> character.getId().equals(characterCommand.getId()))
-                    .findFirst();
-
-            if (characterOptional.isPresent()) {
-                Character characterFound = characterOptional.get();
-                characterFound.setName(characterCommand.getName());
-                characterFound.setImageUrl(characterCommand.getImageUrl());
-                characterFound.setSeries(series);
-                series.addCharacter(characterFound);
-            } else {
-                series.addCharacter(characterCommandToCharacterConverter.convert(characterCommand));
-            }
-
-            Series savedSeries = seriesRepository.save(series);
-
-            return characterToCharacterCommandConverter.convert(savedSeries.getCharacters().stream()
-                    .filter(character -> character.getId().equals(characterCommand.getId()))
-                    .findFirst()
-                    .get());
-
         }
+
+        Series series = seriesOptional.get();
+        Optional<Character> characterOptional = series.getCharacters().stream()
+                .filter(character -> character.getId().equals(characterCommand.getId()))
+                .findFirst();
+
+        if (characterOptional.isPresent()) {
+            Character character = characterOptional.get();
+            character.setName(characterCommand.getName());
+            character.setImageUrl(characterCommand.getImageUrl());
+            character.setVoiceActor(characterCommandToCharacterConverter.convert(characterCommand).getVoiceActor());
+        } else {
+            Character character = characterCommandToCharacterConverter.convert(characterCommand);
+            series.addCharacter(character);
+        }
+
+        Series savedSeries = seriesRepository.save(series);
+
+        Optional<Character> savedCharacterOptional = savedSeries.getCharacters().stream()
+            .filter(character -> character.getName().equals(characterCommand.getName()))
+            .filter(character -> character.getImageUrl().equals(characterCommand.getImageUrl()))
+            .findFirst();
+
+        if (savedCharacterOptional.isEmpty()) {
+            log.error("Character not found");
+            return new CharacterCommand();
+        }
+
+        return characterToCharacterCommandConverter.convert(savedCharacterOptional.get());
     }
+
 }

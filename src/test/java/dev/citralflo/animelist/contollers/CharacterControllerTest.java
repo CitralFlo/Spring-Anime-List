@@ -18,6 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -93,6 +95,25 @@ class CharacterControllerTest {
 
         //given
         mockMvc.perform(get("/series/1/character/1/update"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("series/character/form"))
+                .andExpect(model().attributeExists("character"))
+                .andExpect(model().attributeExists("allVoiceActors"));
+    }
+
+    @Test
+    void testNewCharacterForm() throws Exception {
+        //given
+        SeriesCommand seriesCommand = new SeriesCommand();
+        seriesCommand.setCharacters(List.of(new CharacterCommand()));
+
+        //when
+        when(characterService.findCharacterBySeriesIdAndCharacterId(anyLong(), anyLong())).thenReturn(seriesCommand.getCharacters().get(0));
+        when(voiceActorService.listVoiceActors()).thenReturn(Set.of(new VoiceActorCommand()));
+        when(seriesService.getSeriesCommandById(anyLong())).thenReturn(seriesCommand);
+
+        //given
+        mockMvc.perform(get("/series/1/character/new"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("series/character/form"))
                 .andExpect(model().attributeExists("character"))

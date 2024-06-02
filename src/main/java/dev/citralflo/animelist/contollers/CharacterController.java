@@ -65,4 +65,19 @@ public class CharacterController {
 
         return "redirect:/series/" + command.getSeriesId() + "/character/" + savedCommand.getId() + "/view";
     }
+
+    @GetMapping
+    @RequestMapping("/series/{seriesId}/character/new")
+    public String newCharacter(@PathVariable String seriesId, Model model) {
+        log.debug("Creating new character for series" + seriesId);
+
+        CharacterCommand characterCommand = new CharacterCommand();
+        characterCommand.setSeriesId(Long.valueOf(seriesId));
+
+        model.addAttribute("character", characterCommand);
+        model.addAttribute("allVoiceActors", voiceActorService.listVoiceActors());
+
+        return "series/character/form";
+    }
+
 }

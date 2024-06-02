@@ -8,9 +8,11 @@ import jakarta.persistence.ManyToMany;
 import java.util.Set;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(exclude = "series")
+@ToString(exclude = "series")
 @Entity
 public class Genre {
 
