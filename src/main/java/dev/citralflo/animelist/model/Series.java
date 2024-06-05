@@ -49,10 +49,9 @@ public class Series {
         note.setSeries(this);
     }
 
-    public Series addCharacter(Character character) {
+    public void addCharacter(Character character) {
         characters.add(character);
         character.setSeries(this);
-        return this;
     }
 
 }

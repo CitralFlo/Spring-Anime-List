@@ -6,8 +6,10 @@ import dev.citralflo.animelist.converters.object2command.CharacterToCharacterCom
 import dev.citralflo.animelist.model.Character;
 import dev.citralflo.animelist.model.Series;
 import dev.citralflo.animelist.repositories.SeriesRepository;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -116,6 +118,22 @@ public class CharacterServiceImpl implements CharacterService {
         else {
             log.error("Series not found");
         }
+    }
+
+    @Override
+    public List<CharacterCommand> listCharactersBySeriesId(Long seriesId) {
+        Optional<Series> seriesOptional = seriesRepository.findById(seriesId);
+
+        if (seriesOptional.isEmpty()) {
+            log.error("Series not found");
+            return new ArrayList<>();
+        }
+
+        Series series = seriesOptional.get();
+
+        return series.getCharacters().stream()
+            .map(characterToCharacterCommandConverter::convert)
+            .collect(Collectors.toList());
     }
 
 }

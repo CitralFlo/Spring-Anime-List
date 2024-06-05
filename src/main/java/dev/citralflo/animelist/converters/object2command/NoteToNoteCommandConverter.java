@@ -11,12 +11,8 @@ import org.springframework.stereotype.Component;
 public class NoteToNoteCommandConverter implements Converter<Note, NoteCommand> {
 
     @Synchronized
-    @Nullable
     @Override
     public NoteCommand convert(Note note) {
-        if (note == null) {
-            return null;
-        }
         final NoteCommand noteCommand = new NoteCommand();
         noteCommand.setId(note.getId());
         noteCommand.setNote(note.getNote());

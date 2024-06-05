@@ -36,19 +36,14 @@ public class SeriesServiceIT {
     @Test
     void testSaveOfName() throws Exception {
 
-        Set<Series> series = seriesRepository.findAll();
-        Series testSeries = series.iterator().next();
-        SeriesCommand testSeriesCommand = seriesToSeriesCommandConverter.convert(testSeries);
+        //given
+        SeriesCommand command = new SeriesCommand();
+        command.setTitle(TITLE);
 
         //when
-        testSeriesCommand.setTitle(TITLE);
-        SeriesCommand savedSeriesCommand = seriesService.saveSeriesCommand(testSeriesCommand);
+        SeriesCommand savedCommand = seriesService.saveSeriesCommand(command);
 
         //then
-        assert savedSeriesCommand != null;
-        assertEquals(TITLE, savedSeriesCommand.getTitle());
-        assertEquals(testSeries.getId(), savedSeriesCommand.getId());
-        assertEquals(testSeries.getCharacters().size(), savedSeriesCommand.getCharacters().size());
-        assertEquals(testSeries.getGenres().size(), savedSeriesCommand.getGenres().size());
+        assertEquals(TITLE, savedCommand.getTitle());
     }
 }

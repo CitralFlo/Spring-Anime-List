@@ -22,11 +22,6 @@ class CharacterToCharacterCommandConverterTest {
     }
 
     @Test
-    void testNullObject() {
-        assertNull(converter.convert(null));
-    }
-
-    @Test
     void testEmptyObject() {
         assertNotNull(converter.convert(new Character()));
     }
@@ -47,11 +42,11 @@ class CharacterToCharacterCommandConverterTest {
 
         //then
         assertNotNull(characterCommand);
-        assertNotNull(characterCommand.getVoiceActor());
+        assertNotNull(characterCommand.getVoiceActorId());
         assertEquals(ID, characterCommand.getId());
         assertEquals(NAME, characterCommand.getName());
         assertEquals(IMAGE_URL, characterCommand.getImageUrl());
-        assertEquals(VA_ID, characterCommand.getVoiceActor().getId());
+        assertEquals(VA_ID, characterCommand.getVoiceActorId());
     }
 
     @Test
@@ -67,7 +62,7 @@ class CharacterToCharacterCommandConverterTest {
 
         //then
         assertNotNull(characterCommand);
-        assertNull(characterCommand.getVoiceActor());
+        assertNull(characterCommand.getVoiceActorId());
         assertEquals(ID, characterCommand.getId());
         assertEquals(NAME, characterCommand.getName());
         assertEquals(IMAGE_URL, characterCommand.getImageUrl());

@@ -1,10 +1,12 @@
 package dev.citralflo.animelist.services;
 
 import dev.citralflo.animelist.commands.VoiceActorCommand;
+import dev.citralflo.animelist.converters.command2object.VoiceActorCommandToVoiceActorConverter;
 import dev.citralflo.animelist.converters.object2command.VoiceActorToVoiceActorCommandConverter;
 import dev.citralflo.animelist.model.VoiceActor;
 import dev.citralflo.animelist.repositories.VoiceActorRepository;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +20,7 @@ import static org.mockito.Mockito.when;
 class VoiceActorServiceImplTest {
 
     VoiceActorToVoiceActorCommandConverter voiceActorToVoiceActorCommandConverter = new VoiceActorToVoiceActorCommandConverter();
+    VoiceActorCommandToVoiceActorConverter voiceActorCommandToVoiceActorConverter = new VoiceActorCommandToVoiceActorConverter();
     VoiceActorService voiceActorService;
 
     @Mock
@@ -27,7 +30,7 @@ class VoiceActorServiceImplTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        voiceActorService = new VoiceActorServiceImpl(voiceActorRepository, voiceActorToVoiceActorCommandConverter);
+        voiceActorService = new VoiceActorServiceImpl(voiceActorRepository, voiceActorToVoiceActorCommandConverter, voiceActorCommandToVoiceActorConverter);
     }
 
     @Test
@@ -45,7 +48,7 @@ class VoiceActorServiceImplTest {
         when(voiceActorRepository.findAll()).thenReturn(voiceActors);
 
         // when
-        Set<VoiceActorCommand> voiceActorCommands = voiceActorService.listVoiceActors();
+        Map<Long, VoiceActorCommand> voiceActorCommands = voiceActorService.listVoiceActors();
 
         // then
         assertEquals(2, voiceActorCommands.size());

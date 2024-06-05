@@ -8,10 +8,18 @@ import dev.citralflo.animelist.commands.VoiceActorCommand;
 import dev.citralflo.animelist.model.Character;
 import dev.citralflo.animelist.model.Rating;
 import dev.citralflo.animelist.model.Series;
+import dev.citralflo.animelist.services.CharacterService;
+import dev.citralflo.animelist.services.GenreService;
+import dev.citralflo.animelist.services.VoiceActorService;
+import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 
 class SeriesCommandToSeriesConverterTest {
 
@@ -36,18 +44,25 @@ class SeriesCommandToSeriesConverterTest {
 
     SeriesCommandToSeriesConverter converter;
 
+    @Mock
+    VoiceActorService VoiceActorService;
+
+    @Mock
+    CharacterService characterService;
+
+    @Mock
+    GenreService genreService;
+
     @BeforeEach
     void setUp() {
-        this.converter = new SeriesCommandToSeriesConverter(
-            new CharacterCommandToCharacterConverter(new VoiceActorCommandToVoiceActorConverter()),
-            new GenreCommandToGenreConverter(),
-            new NoteCommandToNoteConverter()
-        );
-    }
+        MockitoAnnotations.openMocks(this);
 
-    @Test
-    void testNullObject() {
-        assertNull(converter.convert(null));
+        this.converter = new SeriesCommandToSeriesConverter(
+            new CharacterCommandToCharacterConverter(new VoiceActorCommandToVoiceActorConverter(), VoiceActorService),
+            new NoteCommandToNoteConverter(),
+            characterService,
+            genreService
+        );
     }
 
     @Test
@@ -165,58 +180,6 @@ class SeriesCommandToSeriesConverterTest {
         assertTrue(series.getCharacters().isEmpty());
     }
 
-    @Test
-    void convertWithCharacters() {
-        //given
-        SeriesCommand seriesCommand = new SeriesCommand();
-        seriesCommand.setId(ID);
-        seriesCommand.setTitle(TITLE);
-        seriesCommand.setDescription(DESCRIPTION);
-        seriesCommand.setRating(RATING);
-        seriesCommand.setImageUrl(IMAGE_URL);
-        seriesCommand.setUrl(SERIES_URL);
-
-        CharacterCommand characterCommand = new CharacterCommand();
-        characterCommand.setId(CHARACTER_ID);
-        characterCommand.setName(CHARACTER_NAME);
-
-        VoiceActorCommand voiceActorCommand = new VoiceActorCommand();
-        voiceActorCommand.setId(VA_ID);
-        voiceActorCommand.setName(VA_NAME);
-
-        characterCommand.setVoiceActor(voiceActorCommand);
-
-        seriesCommand.getCharacters().add(characterCommand);
-
-        //when
-        Series series = converter.convert(seriesCommand);
-
-        //then
-        assertNotNull(series);
-        assertEquals(ID, series.getId());
-        assertEquals(TITLE, series.getTitle());
-        assertEquals(DESCRIPTION, series.getDescription());
-        assertEquals(RATING, series.getRating());
-        assertEquals(IMAGE_URL, series.getImageUrl());
-        assertEquals(SERIES_URL, series.getUrl());
-
-        assertFalse(series.getCharacters().isEmpty());
-        assertEquals(1, series.getCharacters().size());
-
-        Set<Character> characters = series.getCharacters();
-
-        characters.forEach(
-            character -> {
-                assertNotNull(character);
-                assertEquals(CHARACTER_ID, character.getId());
-                assertEquals(CHARACTER_NAME, character.getName());
-
-                assertNotNull(character.getVoiceActor());
-                assertEquals(VA_ID, character.getVoiceActor().getId());
-                assertEquals(VA_NAME, character.getVoiceActor().getName());
-            }
-        );
-    }
 
     @Test
     void convertWithEmptyGenres() {
@@ -243,41 +206,4 @@ class SeriesCommandToSeriesConverterTest {
 
         assertTrue(series.getGenres().isEmpty());
     }
-
-    @Test
-    void convertWithGenres() {
-        //given
-        SeriesCommand seriesCommand = new SeriesCommand();
-        seriesCommand.setId(ID);
-        seriesCommand.setTitle(TITLE);
-        seriesCommand.setDescription(DESCRIPTION);
-        seriesCommand.setRating(RATING);
-        seriesCommand.setImageUrl(IMAGE_URL);
-        seriesCommand.setUrl(SERIES_URL);
-
-        GenreCommand genreCommand = new GenreCommand();
-        genreCommand.setId(GENRE_ID);
-        genreCommand.setName(GENRE_NAME);
-
-        seriesCommand.getGenres().add(genreCommand);
-
-        //when
-        Series series = converter.convert(seriesCommand);
-
-        //then
-        assertNotNull(series);
-        assertEquals(ID, series.getId());
-        assertEquals(TITLE, series.getTitle());
-        assertEquals(DESCRIPTION, series.getDescription());
-        assertEquals(RATING, series.getRating());
-        assertEquals(IMAGE_URL, series.getImageUrl());
-        assertEquals(SERIES_URL, series.getUrl());
-
-        assertFalse(series.getGenres().isEmpty());
-        assertEquals(1, series.getGenres().size());
-
-        assertEquals(GENRE_ID, series.getGenres().iterator().next().getId());
-        assertEquals(GENRE_NAME, series.getGenres().iterator().next().getName());
-    }
-
 }

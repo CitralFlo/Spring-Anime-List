@@ -11,12 +11,8 @@ import org.springframework.stereotype.Component;
 public class VoiceActorToVoiceActorCommandConverter implements Converter<VoiceActor, VoiceActorCommand> {
 
     @Synchronized
-    @Nullable
     @Override
     public VoiceActorCommand convert(VoiceActor voiceActor) {
-        if (voiceActor == null) {
-            return null;
-        }
         final VoiceActorCommand voiceActorCommand = new VoiceActorCommand();
         voiceActorCommand.setId(voiceActor.getId());
         voiceActorCommand.setName(voiceActor.getName());

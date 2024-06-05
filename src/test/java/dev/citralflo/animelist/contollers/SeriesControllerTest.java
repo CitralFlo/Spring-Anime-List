@@ -3,8 +3,8 @@ package dev.citralflo.animelist.contollers;
 import dev.citralflo.animelist.commands.SeriesCommand;
 import dev.citralflo.animelist.model.Genre;
 import dev.citralflo.animelist.model.Series;
+import dev.citralflo.animelist.services.GenreService;
 import dev.citralflo.animelist.services.SeriesService;
-import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -27,6 +27,9 @@ class SeriesControllerTest {
     @Mock
     SeriesService seriesService;
 
+    @Mock
+    GenreService genreService;
+
     SeriesController controller;
 
     MockMvc mockMvc;
@@ -35,7 +38,7 @@ class SeriesControllerTest {
     void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
 
-        controller = new SeriesController(seriesService);
+        controller = new SeriesController(seriesService, genreService);
 
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
@@ -49,9 +52,9 @@ class SeriesControllerTest {
         when(seriesService.getSeriesById(1L)).thenReturn(series);
 
         mockMvc.perform(get("/series/1/view"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("series/view"))
-                .andExpect(model().attributeExists("series"));
+            .andExpect(status().isOk())
+            .andExpect(view().name("series/view"))
+            .andExpect(model().attributeExists("series"));
     }
 
     @Test
@@ -75,11 +78,10 @@ class SeriesControllerTest {
         assertEquals("Action", series.getGenres().iterator().next().getName());
 
         mockMvc.perform(get("/series/1/view"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("series/view"))
-                .andExpect(model().attributeExists("series"));
+            .andExpect(status().isOk())
+            .andExpect(view().name("series/view"))
+            .andExpect(model().attributeExists("series"));
     }
-
 
 
     @Test
@@ -87,9 +89,9 @@ class SeriesControllerTest {
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
         mockMvc.perform(get("/series/new"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("series/form"))
-                .andExpect(model().attributeExists("series"));
+            .andExpect(status().isOk())
+            .andExpect(view().name("series/new"))
+            .andExpect(model().attributeExists("series"));
     }
 
     @Test
@@ -102,19 +104,19 @@ class SeriesControllerTest {
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
         mockMvc.perform(post("/series/save")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-     //           .param("id", "")
-      //          .param("title", "title")
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                //           .param("id", "")
+                //          .param("title", "title")
             )
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/series/2/view"));
+            .andExpect(status().is3xxRedirection())
+            .andExpect(view().name("redirect:/series/2/view"));
     }
 
     @Test
     void testDeleteAction() throws Exception {
         mockMvc.perform(get("/series/1/delete"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/"));
+            .andExpect(status().is3xxRedirection())
+            .andExpect(view().name("redirect:/"));
 
         verify(seriesService).deleteSeriesById(1L);
     }

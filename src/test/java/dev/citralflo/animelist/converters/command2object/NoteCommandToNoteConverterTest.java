@@ -19,11 +19,6 @@ class NoteCommandToNoteConverterTest {
     }
 
     @Test
-    void testNullObject() {
-        assertNull(converter.convert(null));
-    }
-
-    @Test
     void testEmptyObject() {
         assertNotNull(converter.convert(new NoteCommand()));
     }

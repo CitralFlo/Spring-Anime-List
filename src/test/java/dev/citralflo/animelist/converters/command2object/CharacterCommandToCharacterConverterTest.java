@@ -5,8 +5,11 @@ import dev.citralflo.animelist.commands.VoiceActorCommand;
 import dev.citralflo.animelist.model.Character;
 import dev.citralflo.animelist.model.Series;
 import dev.citralflo.animelist.model.VoiceActor;
+import dev.citralflo.animelist.services.VoiceActorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CharacterCommandToCharacterConverterTest {
@@ -18,20 +21,16 @@ class CharacterCommandToCharacterConverterTest {
 
     CharacterCommandToCharacterConverter converter;
 
+    @Mock
+    VoiceActorService voiceActorService;
+
     @BeforeEach
     void setUp() {
-        this.converter = new CharacterCommandToCharacterConverter(new VoiceActorCommandToVoiceActorConverter());
+        MockitoAnnotations.openMocks(this);
+
+        this.converter = new CharacterCommandToCharacterConverter(new VoiceActorCommandToVoiceActorConverter(), voiceActorService);
     }
 
-    @Test
-    void testNullObject() throws Exception{
-        assertNull(converter.convert(null));
-    }
-
-    @Test
-    void testEmptyObject() throws Exception{
-        assertNotNull(converter.convert(new CharacterCommand()));
-    }
 
     @Test
     void convert() throws Exception{
@@ -40,20 +39,16 @@ class CharacterCommandToCharacterConverterTest {
         characterCommand.setId(ID);
         characterCommand.setName(NAME);
         characterCommand.setImageUrl(IMAGE_URL);
-        VoiceActorCommand voiceActorCommand = new VoiceActorCommand();
-        voiceActorCommand.setId(VA_ID);
-        characterCommand.setVoiceActor(voiceActorCommand);
+        characterCommand.setVoiceActorId(VA_ID);
 
         //when
         Character character = converter.convert(characterCommand);
 
         //then
         assertNotNull(character);
-        assertNotNull(character.getVoiceActor());
         assertEquals(ID, character.getId());
         assertEquals(NAME, character.getName());
         assertEquals(IMAGE_URL, character.getImageUrl());
-        assertEquals(VA_ID, character.getVoiceActor().getId());
     }
 
     @Test

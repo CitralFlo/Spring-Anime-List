@@ -4,7 +4,6 @@ import dev.citralflo.animelist.commands.CharacterCommand;
 import dev.citralflo.animelist.model.Character;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,12 +16,8 @@ public class CharacterToCharacterCommandConverter implements Converter<Character
     }
 
     @Synchronized
-    @Nullable
     @Override
     public CharacterCommand convert(Character character) {
-        if (character == null) {
-            return null;
-        }
         final CharacterCommand characterCommand = new CharacterCommand();
         characterCommand.setId(character.getId());
         characterCommand.setName(character.getName());
@@ -33,7 +28,7 @@ public class CharacterToCharacterCommandConverter implements Converter<Character
         }
 
         if (character.getVoiceActor() != null) {
-            characterCommand.setVoiceActor(this.voiceActorToVoiceActorCommandConverter.convert(character.getVoiceActor()));
+            characterCommand.setVoiceActorId(character.getVoiceActor().getId());
         }
 
         return characterCommand;

@@ -1,7 +1,11 @@
 package dev.citralflo.animelist.contollers;
 
+import dev.citralflo.animelist.commands.GenreCommand;
+import dev.citralflo.animelist.model.Genre;
 import dev.citralflo.animelist.model.Series;
 import dev.citralflo.animelist.repositories.SeriesRepository;
+import dev.citralflo.animelist.services.GenreService;
+import dev.citralflo.animelist.services.SeriesService;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +27,11 @@ import static org.mockito.Mockito.when;
 class IndexControllerTest {
 
     @Mock
-    SeriesRepository seriesRepository;
+    SeriesService seriesService;
+
+    @Mock
+    GenreService genreService;
+
     @Mock
     Model model;
 
@@ -33,7 +41,7 @@ class IndexControllerTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-         controller = new IndexController(seriesRepository);
+         controller = new IndexController(seriesService, genreService);
     }
 
     @Test
@@ -55,14 +63,19 @@ class IndexControllerTest {
         series1.setId(1L);
         series.add(series1);
 
-        when(seriesRepository.findAll()).thenReturn(series);
+        Set<GenreCommand> genres = new HashSet<>();
+        genres.add(new GenreCommand());
+
+        when(seriesService.getSeries()).thenReturn(series);
+        when(genreService.getGenres()).thenReturn(genres);
 
         ArgumentCaptor<Set<Series>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
 
         String index = controller.getIndex(model);
 
         assertEquals("index", index);
-        verify(seriesRepository, times(1)).findAll();
+        verify(seriesService, times(1)).getSeries();
+        verify(genreService, times(1)).getGenres();
         verify(model, times(1)).addAttribute(eq("animes"), argumentCaptor.capture());
         Set<Series> setInController = argumentCaptor.getValue();
         assertEquals(2, setInController.size());

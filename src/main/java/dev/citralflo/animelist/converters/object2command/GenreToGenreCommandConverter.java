@@ -11,12 +11,8 @@ import org.springframework.stereotype.Component;
 public class GenreToGenreCommandConverter implements Converter<Genre, GenreCommand> {
 
     @Synchronized
-    @Nullable
     @Override
     public GenreCommand convert(Genre genre) {
-        if (genre == null) {
-            return null;
-        }
         final GenreCommand genreCommand = new GenreCommand();
         genreCommand.setId(genre.getId());
         genreCommand.setName(genre.getName());

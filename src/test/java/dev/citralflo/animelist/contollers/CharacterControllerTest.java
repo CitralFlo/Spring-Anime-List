@@ -9,6 +9,7 @@ import dev.citralflo.animelist.services.CharacterService;
 import dev.citralflo.animelist.services.SeriesService;
 import dev.citralflo.animelist.services.VoiceActorService;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 class CharacterControllerTest {
+
+    private static final Long CHARACTER_ID = 1L;
 
     @Mock
     SeriesService seriesService;
@@ -69,10 +72,11 @@ class CharacterControllerTest {
         SeriesCommand seriesCommand = new SeriesCommand();
 
         CharacterCommand character = new CharacterCommand();
-        seriesCommand.setCharacters(List.of(character));
+        seriesCommand.setCharacters_id(List.of(CHARACTER_ID));
 
         //when
-        when(characterService.findCharacterBySeriesIdAndCharacterId(anyLong(), anyLong())).thenReturn(seriesCommand.getCharacters().get(0));
+        when(characterService.findCharacterBySeriesIdAndCharacterId(anyLong(), anyLong())).thenReturn(character);
+        when(voiceActorService.listVoiceActors()).thenReturn(Map.of(1L, new VoiceActorCommand()));
         when(seriesService.getSeriesCommandById(anyLong())).thenReturn(seriesCommand);
 
         //given
@@ -86,11 +90,13 @@ class CharacterControllerTest {
     void updateCharacter() throws Exception {
         //given
         SeriesCommand seriesCommand = new SeriesCommand();
-        seriesCommand.setCharacters(List.of(new CharacterCommand()));
+
+
+        seriesCommand.setCharacters_id(List.of(CHARACTER_ID));
 
         //when
-        when(characterService.findCharacterBySeriesIdAndCharacterId(anyLong(), anyLong())).thenReturn(seriesCommand.getCharacters().get(0));
-        when(voiceActorService.listVoiceActors()).thenReturn(Set.of(new VoiceActorCommand()));
+        when(characterService.findCharacterBySeriesIdAndCharacterId(anyLong(), anyLong())).thenReturn(new CharacterCommand());
+        when(voiceActorService.listVoiceActors()).thenReturn(Map.of(1L, new VoiceActorCommand()));
         when(seriesService.getSeriesCommandById(anyLong())).thenReturn(seriesCommand);
 
         //given
@@ -105,11 +111,11 @@ class CharacterControllerTest {
     void testNewCharacterForm() throws Exception {
         //given
         SeriesCommand seriesCommand = new SeriesCommand();
-        seriesCommand.setCharacters(List.of(new CharacterCommand()));
+        seriesCommand.setCharacters_id(List.of(CHARACTER_ID));
 
         //when
-        when(characterService.findCharacterBySeriesIdAndCharacterId(anyLong(), anyLong())).thenReturn(seriesCommand.getCharacters().get(0));
-        when(voiceActorService.listVoiceActors()).thenReturn(Set.of(new VoiceActorCommand()));
+        when(characterService.findCharacterBySeriesIdAndCharacterId(anyLong(), anyLong())).thenReturn(new CharacterCommand());
+        when(voiceActorService.listVoiceActors()).thenReturn(Map.of(1L, new VoiceActorCommand()));
         when(seriesService.getSeriesCommandById(anyLong())).thenReturn(seriesCommand);
 
         //given

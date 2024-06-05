@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Edit Series</title>
@@ -25,17 +25,20 @@
                 </div>
                 <div class="card-body">
                     <form th:action="@{/series/save}" th:object="${series}" method="post">
+                        <input type="hidden" th:field="*{id}">
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
                             <input type="text" class="form-control" id="title" name="title" th:field="*{title}">
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="3" th:field="*{description}"></textarea>
+                            <textarea class="form-control" id="description" name="description" rows="3"
+                                      th:field="*{description}"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="imageUrl" class="form-label">Image URL</label>
-                            <input type="text" class="form-control" id="imageUrl" name="imageUrl" th:field="*{imageUrl}">
+                            <input type="text" class="form-control" id="imageUrl" name="imageUrl"
+                                   th:field="*{imageUrl}">
                         </div>
                         <div class="mb-3">
                             <label for="rating" class="form-label">Rating</label>
@@ -48,30 +51,28 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="genres" class="form-label">Genres</label>
-                            <div th:each="genre : ${allGenres}">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="genre-[[${genre.id}]]" th:field="*{genres}" th:value="${genre.id}">
-                                    <label class="form-check-label" th:for="genre-[[${genre.id}]]" th:text="${genre.name}"></label>
-                                </div>
-                            </div>
+                            <h5>Genres</h5>
+                            <select class="form-select" id="genre" name="genre" th:field="*{genres_id}" multiple>
+                                <option th:each="genre : ${allGenres}"
+                                        th:value="${genre.id}"
+                                        th:text="${genre.name}"
+                                        th:selected="${series.genres_id.contains(genre.id)}">
+                                </option>
+                            </select>
                         </div>
+
                         <div class="mb-3">
                             <h5>Characters</h5>
-                            <div th:each="character, iterStat : ${series.characters}">
-                                <div class="mb-3">
-                                    <label for="characterName-[[${iterStat.index}]]" class="form-label">Character Name</label>
-                                    <input type="text" class="form-control" id="characterName-[[${iterStat.index}]]" th:field="*{characters[__${iterStat.index}__].name}">
-                                    <label for="characterImage-[[${iterStat.index}]]" class="form-label">Character Image URL</label>
-                                    <input type="text" class="form-control" id="characterImage-[[${iterStat.index}]]" th:field="*{characters[__${iterStat.index}__].imageUrl}">
-                                    <label for="characterVoiceActor-[[${iterStat.index}]]" class="form-label">Voice Actor</label>
-                                    <input type="text" class="form-control" id="characterVoiceActor-[[${iterStat.index}]]" th:field="*{characters[__${iterStat.index}__].voiceActor.name}">
-                                </div>
-                            </div>
+
+                            <a th:if="series.id != null" th:href="@{'/series/' + ${series.id} + '/characters'}"
+                               class="btn btn-primary">Edit Characters</a>
+
                         </div>
                         <div class="mb-3">
                             <label for="note" class="form-label">Note</label>
-                            <textarea class="form-control" id="note" name="note" rows="3" th:field="*{note.note}"></textarea>
+                            <input type="hidden" th:field="*{note.id}">
+                            <textarea class="form-control" id="note" name="note" rows="3"
+                                      th:field="*{note.note}"></textarea>
                         </div>
                         <div class="mb-3">
                             <button type="submit" class="btn btn-primary">Save</button>

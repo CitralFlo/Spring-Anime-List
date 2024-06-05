@@ -17,8 +17,8 @@ public class SeriesCommand {
     private String imageUrl;
     private String url;
     private NoteCommand note;
-    private List<CharacterCommand> characters = new ArrayList<>();
+    private List<Long> characters_id = new ArrayList<>();
     private Rating rating;
-    private List<GenreCommand> genres = new ArrayList<>();
+    private List<Long> genres_id = new ArrayList<>();
 
 }

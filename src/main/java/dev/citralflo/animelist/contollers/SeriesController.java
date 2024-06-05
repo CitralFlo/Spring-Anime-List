@@ -1,6 +1,7 @@
 package dev.citralflo.animelist.contollers;
 
 import dev.citralflo.animelist.commands.SeriesCommand;
+import dev.citralflo.animelist.services.GenreService;
 import dev.citralflo.animelist.services.SeriesService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -9,16 +10,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @Slf4j
 public class SeriesController {
 
     private final SeriesService seriesService;
+    private final GenreService genreService;
 
-    public SeriesController(SeriesService seriesRepository) {
+    public SeriesController(SeriesService seriesRepository, GenreService genreService) {
         this.seriesService = seriesRepository;
+        this.genreService = genreService;
     }
 
     @GetMapping("/series/{id}/view")
@@ -32,14 +34,17 @@ public class SeriesController {
     public String newSeries(Model model) {
         model.addAttribute("series", new SeriesCommand());
 
-        return "series/form";
+        model.addAttribute("allGenres", genreService.getGenres());
+
+        return "series/new";
     }
 
     @GetMapping("series/{id}/update")
     public String updateSeries(@PathVariable String id, Model model) {
         model.addAttribute("series", seriesService.getSeriesCommandById(Long.valueOf(id)));
+        model.addAttribute("allGenres", genreService.getGenres());
 
-        return "series/form";
+        return "series/update";
     }
 
     @GetMapping("/series/{id}/delete")
@@ -50,10 +55,15 @@ public class SeriesController {
         return "redirect:/";
     }
 
-    @PostMapping("series/save")
-    public String saveOrUpdateSeries(@ModelAttribute SeriesCommand command) {
-        SeriesCommand savedCommand = seriesService.saveSeriesCommand(command);
+    @PostMapping("/series/save")
+    public String saveOrUpdateSeries(@ModelAttribute SeriesCommand seriesCommand) {
 
-        return "redirect:/series/" + savedCommand.getId().longValue() + "/view";
+        if (seriesCommand.getId() != null) {
+            seriesCommand.setCharacters_id(seriesService.getSeriesCommandById(seriesCommand.getId()).getCharacters_id());
+        }
+
+        // Save or update the series
+        SeriesCommand savedSeriesCommand = seriesService.saveSeriesCommand(seriesCommand);
+        return "redirect:/series/" + savedSeriesCommand.getId() + "/view";
     }
 }

@@ -3,27 +3,27 @@ package dev.citralflo.animelist.converters.command2object;
 import dev.citralflo.animelist.commands.CharacterCommand;
 import dev.citralflo.animelist.model.Character;
 import dev.citralflo.animelist.model.Series;
+import dev.citralflo.animelist.services.VoiceActorService;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CharacterCommandToCharacterConverter implements Converter<CharacterCommand, Character> {
 
     private final VoiceActorCommandToVoiceActorConverter voiceActorCommandToVoiceActorConverter;
+    private final VoiceActorService voiceActorService;
 
-    public CharacterCommandToCharacterConverter( VoiceActorCommandToVoiceActorConverter voiceActorCommandToVoiceActorConverter) {
+    public CharacterCommandToCharacterConverter(VoiceActorCommandToVoiceActorConverter voiceActorCommandToVoiceActorConverter,
+                                                VoiceActorService voiceActorService) {
         this.voiceActorCommandToVoiceActorConverter = voiceActorCommandToVoiceActorConverter;
+        this.voiceActorService = voiceActorService;
     }
 
     @Synchronized
-    @Nullable
     @Override
     public Character convert(CharacterCommand characterCommand) {
-        if (characterCommand == null) {
-            return null;
-        }
+
         final Character character = new Character();
         if (characterCommand.getSeriesId() != null) {
             Series series = new Series();
@@ -36,8 +36,8 @@ public class CharacterCommandToCharacterConverter implements Converter<Character
         character.setName(characterCommand.getName());
         character.setImageUrl(characterCommand.getImageUrl());
 
-        if (characterCommand.getVoiceActor() != null) {
-            character.setVoiceActor(this.voiceActorCommandToVoiceActorConverter.convert(characterCommand.getVoiceActor()));
+        if (characterCommand.getVoiceActorId() != null) {
+            character.setVoiceActor(voiceActorService.getVoiceActorById(characterCommand.getVoiceActorId()));
         }
 
         return character;

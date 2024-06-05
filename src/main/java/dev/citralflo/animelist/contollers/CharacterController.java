@@ -1,9 +1,12 @@
 package dev.citralflo.animelist.contollers;
 
 import dev.citralflo.animelist.commands.CharacterCommand;
+import dev.citralflo.animelist.commands.VoiceActorCommand;
 import dev.citralflo.animelist.services.CharacterService;
 import dev.citralflo.animelist.services.SeriesService;
 import dev.citralflo.animelist.services.VoiceActorService;
+import java.util.List;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +34,11 @@ public class CharacterController {
     public String listCharacters(@PathVariable String seriesId, Model model) {
         log.debug("Getting character list " + seriesId);
 
+        List<CharacterCommand> characterCommands = characterService.listCharactersBySeriesId(Long.valueOf(seriesId));
+
         model.addAttribute("series", seriesService.getSeriesCommandById(Long.valueOf(seriesId)));
+        model.addAttribute("characters", characterCommands);
+        model.addAttribute("allVoiceActors", voiceActorService.listVoiceActors());
 
         return "series/character/list";
     }
@@ -40,8 +47,12 @@ public class CharacterController {
     public String showCharacter(@PathVariable String seriesId, @PathVariable String characterId, Model model) {
         log.debug("Getting character" + characterId + " for series" + seriesId);
 
-        model.addAttribute("character", characterService.findCharacterBySeriesIdAndCharacterId(Long.valueOf(seriesId), Long.valueOf(characterId)));
+        CharacterCommand characterCommand = characterService.findCharacterBySeriesIdAndCharacterId(Long.valueOf(seriesId), Long.valueOf(characterId));
+
+
+        model.addAttribute("character", characterCommand);
         model.addAttribute("series", seriesService.getSeriesCommandById(Long.valueOf(seriesId)));
+        model.addAttribute("voiceActor", voiceActorService.getVoiceActorCommandById(characterCommand.getVoiceActorId()));
 
         return "series/character/view";
     }

@@ -12,5 +12,5 @@ public class CharacterCommand {
     private Long seriesId;
     private String name;
     private String imageUrl;
-    private VoiceActorCommand voiceActor;
+    private Long voiceActorId;
 }

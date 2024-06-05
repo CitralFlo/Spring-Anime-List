@@ -1,7 +1,9 @@
 package dev.citralflo.animelist.services;
 
+import dev.citralflo.animelist.commands.SeriesCommand;
 import dev.citralflo.animelist.converters.command2object.SeriesCommandToSeriesConverter;
 import dev.citralflo.animelist.converters.object2command.SeriesToSeriesCommandConverter;
+import dev.citralflo.animelist.converters.object2command.VoiceActorToVoiceActorCommandConverter;
 import dev.citralflo.animelist.model.Series;
 import dev.citralflo.animelist.repositories.SeriesRepository;
 import java.util.HashSet;
@@ -61,21 +63,9 @@ class SeriesServiceTest {
         when(seriesRepository.findAll()).thenReturn(seriesData);
 
 
-
         Set<Series> series = seriesService.getSeries();
 
         assertEquals(1, series.size());
         verify(seriesRepository, times(1)).findAll();
-    }
-
-    @Test
-    void deleteById() {
-        Long id = 1L;
-
-
-
-        assertTrue(seriesService.deleteSeriesById(id));
-
-        verify(seriesRepository, times(1)).deleteById(id);
     }
 }

@@ -34,11 +34,11 @@
                         </div>
                         <div class="mb-3">
                             <label for="voiceActor" class="form-label">Voice Actor</label>
-                            <select class="form-select" id="voiceActor" th:field="*{voiceActor.id}">
+                            <select class="form-select" id="voiceActor" th:field="*{voiceActorId}">
                                 <option th:each="voiceActor : ${allVoiceActors}"
-                                        th:value="${voiceActor.id}"
-                                        th:text="${voiceActor.name}"
-                                        th:selected="${voiceActor.id} == ${character.voiceActor.id}">
+                                        th:value="${voiceActor.key}"
+                                        th:text="${voiceActor.value.name}"
+                                        th:selected="${voiceActor.key} == ${character.voiceActorId}">
                                 </option>
                             </select>
                         </div>

@@ -1,5 +1,6 @@
 package dev.citralflo.animelist.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,7 +22,7 @@ public class VoiceActor {
     private String name;
     private String imageUrl;
 
-    @OneToMany
+    @OneToMany(mappedBy = "voiceActor", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Character> characters = new HashSet<>();
 
     public VoiceActor(String name, String imageUrl) {

@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-md-10 offset-md-1">
             <div class="card">
-                <div class="card-body" th:if="${not#lists.isEmpty(series.characters)}">
+                <div class="card-body" th:if="${not#lists.isEmpty(series.characters_id)}">
                     <div class="row">
                         <div class="col-12">
                             <h5>Anime Characters in the Series:</h5>
@@ -30,7 +30,7 @@
                     </div>
                     <!-- @thymesVar id="series" type="dev.citralflo.animelist.model.Series" -->
                     <div class="row">
-                        <div class="col-md-3 card m-2" th:each="character : ${series.characters}">
+                        <div class="col-md-3 card m-2" th:each="character : ${characters}">
                             <div class="card-header">
                                 <p class="card-title text-center" th:text="${character.name}">Character</p>
                             </div>
@@ -39,7 +39,7 @@
                                      class="img-thumbnail object-fit-cover"
                                      style="width: 150px; height: 150px;">
                                 <h6 class="text-center mt-2">Voice Actor:</h6>
-                                <p class="card-footer text-center" th:text="${character.voiceActor.name}">
+                                <p class="card-footer text-center" th:text="${allVoiceActors.get(character.voiceActorId).name}">
                                     Voice Actor
                                 </p>
                                 <a th:href="@{'/series/' + ${series.id.longValue()} + '/character/' + ${character.getId().longValue()} + '/view'}"

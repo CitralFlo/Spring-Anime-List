@@ -19,11 +19,6 @@ class GenreToGenreCommandConverterTest {
     }
 
     @Test
-    void testNullObject() throws Exception{
-        assertNull(converter.convert(null));
-    }
-
-    @Test
     void testEmptyObject() throws Exception{
         assertNotNull(converter.convert(new Genre()));
     }

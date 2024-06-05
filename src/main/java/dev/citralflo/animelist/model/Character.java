@@ -21,7 +21,7 @@ public class Character {
     private String name;
     private String imageUrl;
 
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne(cascade = CascadeType.ALL)
     private VoiceActor voiceActor;
 
     @ManyToOne

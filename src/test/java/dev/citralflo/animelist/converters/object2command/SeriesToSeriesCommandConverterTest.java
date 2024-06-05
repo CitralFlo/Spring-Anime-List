@@ -41,11 +41,6 @@ class SeriesToSeriesCommandConverterTest {
     }
 
     @Test
-    void testNullObject() {
-        assertNull(converter.convert(null));
-    }
-
-    @Test
     void testEmptyObject() {
         assertNotNull(converter.convert(new Series()));
     }
@@ -138,8 +133,8 @@ class SeriesToSeriesCommandConverterTest {
 
         //then
         assertNotNull(seriesCommand);
-        assertNotNull(seriesCommand.getCharacters());
-        assertEquals(0, seriesCommand.getCharacters().size());
+        assertNotNull(seriesCommand.getCharacters_id());
+        assertEquals(0, seriesCommand.getCharacters_id().size());
     }
 
     @Test
@@ -162,17 +157,16 @@ class SeriesToSeriesCommandConverterTest {
 
         //then
         assertNotNull(seriesCommand);
-        assertNotNull(seriesCommand.getCharacters());
-        assertEquals(1, seriesCommand.getCharacters().size());
+        assertNotNull(seriesCommand.getCharacters_id());
+        assertEquals(1, seriesCommand.getCharacters_id().size());
 
-        List<CharacterCommand> characters = seriesCommand.getCharacters();
+        List<Long> characters = seriesCommand.getCharacters_id();
         assertNotNull(characters);
         assertEquals(1, characters.size());
         characters.forEach(
             characterCommand -> {
                 assertNotNull(characterCommand);
-                assertEquals(CHARACTER_ID, characterCommand.getId());
-                assertEquals(CHARACTER_NAME, characterCommand.getName());
+                assertEquals(CHARACTER_ID, characterCommand);
             }
         );
     }
@@ -193,8 +187,8 @@ class SeriesToSeriesCommandConverterTest {
 
         //then
         assertNotNull(seriesCommand);
-        assertNotNull(seriesCommand.getCharacters());
-        assertEquals(0, seriesCommand.getCharacters().size());
+        assertNotNull(seriesCommand.getCharacters_id());
+        assertEquals(0, seriesCommand.getCharacters_id().size());
     }
 
     @Test
@@ -221,22 +215,13 @@ class SeriesToSeriesCommandConverterTest {
 
         //then
         assertNotNull(seriesCommand);
-        assertNotNull(seriesCommand.getCharacters());
-        assertEquals(1, seriesCommand.getCharacters().size());
+        assertNotNull(seriesCommand.getCharacters_id());
+        assertEquals(1, seriesCommand.getCharacters_id().size());
 
-        List<CharacterCommand> characters = seriesCommand.getCharacters();
+        List<Long> characters = seriesCommand.getCharacters_id();
         assertNotNull(characters);
         assertEquals(1, characters.size());
-        characters.forEach(
-            characterCommand -> {
-                assertNotNull(characterCommand);
-                assertEquals(CHARACTER_ID, characterCommand.getId());
-                assertEquals(CHARACTER_NAME, characterCommand.getName());
-                assertNotNull(characterCommand.getVoiceActor());
-                assertEquals(VA_ID, characterCommand.getVoiceActor().getId());
-                assertEquals(VA_NAME, characterCommand.getVoiceActor().getName());
-            }
-        );
+
     }
 
 }

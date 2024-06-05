@@ -58,6 +58,11 @@
                         </div>
                         <div class="col-9 ">
                             <h5>Characters:</h5>
+                            <a th:href="@{'/series/' + ${series.id.longValue()} + '/characters'}"
+                               class="btn btn-primary">View characters</a>
+
+                            <a th:href="@{'/series/' + ${series.id.longValue()} + '/character/new'}"
+                               class="btn btn-primary">Add Character</a>
                             <div class="d-flex flex-wrap">
 
                                 <div class="col-md-3 card m-2" th:each="character : ${series.characters}">

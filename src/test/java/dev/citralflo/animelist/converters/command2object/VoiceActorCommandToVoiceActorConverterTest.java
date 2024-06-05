@@ -19,10 +19,6 @@ class VoiceActorCommandToVoiceActorConverterTest {
         this.converter = new VoiceActorCommandToVoiceActorConverter();
     }
 
-    @Test
-    void testNullObject() {
-        assertNull(converter.convert(null));
-    }
 
     @Test
     void testEmptyObject() {
@@ -40,8 +36,9 @@ class VoiceActorCommandToVoiceActorConverterTest {
         //when
         VoiceActor voiceActor = converter.convert(voiceActorCommand);
 
+
+
         //then
-        assertNotNull(voiceActor);
         assertEquals(ID, voiceActor.getId());
         assertEquals(NAME, voiceActor.getName());
         assertEquals(IMAGE_URL, voiceActor.getImageUrl());
