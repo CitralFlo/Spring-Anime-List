@@ -42,12 +42,10 @@
                         </div>
                         <div class="mb-3">
                             <label for="rating" class="form-label">Rating</label>
-                            <select class="form-select" id="rating" name="rating" th:field="*{rating}">
-                                <option value="MASTERPIECE">MASTERPIECE</option>
-                                <option value="THRILLING">THRILLING</option>
-                                <option value="OKAY">OKAY</option>
-                                <option value="BORING">BORING</option>
-                                <option value="BAD">BAD</option>
+                            <select class="form-control" id="rating" name="rating" th:field="*{rating}">
+                                <option th:each="rating : ${T(dev.citralflo.animelist.model.Rating).values()}"
+                                        th:value="${rating}"
+                                        th:text="${rating}">RATING</option>
                             </select>
                         </div>
                         <div class="mb-3">
