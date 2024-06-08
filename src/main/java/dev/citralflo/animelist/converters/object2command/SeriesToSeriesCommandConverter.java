@@ -26,6 +26,7 @@ public class SeriesToSeriesCommandConverter implements Converter<Series, SeriesC
         seriesCommand.setRating(series.getRating());
         seriesCommand.setUrl(series.getUrl());
         seriesCommand.setImageUrl(series.getImageUrl());
+        seriesCommand.setImage(series.getImage());
 
         if (series.getNote() != null) {
             seriesCommand.setNote(this.noteToNoteCommandConverter.convert(series.getNote()));

@@ -39,8 +39,11 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
+                        <a th:href="@{'/series/' + ${series.id.longValue()} + '/image'}"
+                           class="btn btn-primary">Edit image</a>
                         <div class="col-3">
                             <img th:src="${series.imageUrl}" alt="Img" class="img-fluid">
+                            <img th:src="@{'/series/' + ${series.id} + '/seriesimage'}" alt="Img" class="img-fluid">
                         </div>
                         <div class="col-9">
                             <h5>Description:</h5>

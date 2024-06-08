@@ -42,6 +42,7 @@ public class SeriesCommandToSeriesConverter implements Converter<SeriesCommand, 
         series.setDescription(seriesCommand.getDescription());
         series.setUrl(seriesCommand.getUrl());
         series.setImageUrl(seriesCommand.getImageUrl());
+        series.setImage(seriesCommand.getImage());
 
         if (seriesCommand.getCharacters_id() != null && !seriesCommand.getCharacters_id().isEmpty()) {
             seriesCommand.getCharacters_id().forEach(

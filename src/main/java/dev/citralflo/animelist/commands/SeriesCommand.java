@@ -15,6 +15,7 @@ public class SeriesCommand {
     private String title;
     private String description;
     private String imageUrl;
+    private Byte[] image;
     private String url;
     private NoteCommand note;
     private List<Long> characters_id = new ArrayList<>();

@@ -21,6 +21,10 @@ public class Series {
     private String description;
 
     private String url;
+
+    @Lob
+    private Byte[] image;
+
     private String imageUrl;
 
     @OneToOne(cascade = CascadeType.ALL)
