@@ -1,0 +1,33 @@
+:root {
+    --primary-color: #E9D1F5;
+    --secondary-color: #8168FF;
+    --text-black-color: #2B2D42;
+    --text-white-color: #FCFFEF;
+}
+
+@font-face {
+    font-family: 'PlaywriteIS';
+    src: url("../fonts/PlaywriteIS-VariableFont_wght.ttf") format('truetype');
+    font-weight: auto;
+    font-style: auto;
+}
+
+@font-face {
+    font-family: 'Arvo';
+    src: url("../fonts/Arvo-Regular.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.customNavbar {
+    font-family: 'PlaywriteIS', sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--text-black-color);
+}
+
+body {
+    font-family: 'Arvo', sans-serif;
+    color: var(--text-black-color);
+}
