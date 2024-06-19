@@ -9,6 +9,8 @@ import dev.citralflo.animelist.model.VoiceActor;
 import dev.citralflo.animelist.repositories.GenreRepository;
 import dev.citralflo.animelist.repositories.SeriesRepository;
 import dev.citralflo.animelist.repositories.VoiceActorRepository;
+
+import java.io.IOException;
 import java.util.Optional;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +39,7 @@ public class DataLoader implements CommandLineRunner {
         log.debug("DataLoader.run");
     }
 
-    private void loadData() {
+    private void loadData() throws IOException {
 
         Optional<Genre> genreOptional1 = this.genreRepository.findByName("Action");
         Optional<Genre> genreOptional2 = this.genreRepository.findByName("Sci-Fi");
@@ -97,6 +99,12 @@ public class DataLoader implements CommandLineRunner {
         NGE.setImageUrl("https://w0.peakpx.com/wallpaper/40/143/HD-wallpaper-eva-01-evangelion-neon-genesis-evangelion-shinji.jpg");
         NGE.setNote(new Note(NGE, "I hate the main character, Shinji Ikari. He's a whiny little brat."));
 
+        try {
+            NGE.setImageFromUrl("https://w0.peakpx.com/wallpaper/40/143/HD-wallpaper-eva-01-evangelion-neon-genesis-evangelion-shinji.jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         NGE.addCharacter(new Character("Shinji Ikari", "https://i1.sndcdn.com/artworks-000545105238-g2du6q-t500x500.jpg", voiceActorOptional3.get()));
         NGE.addCharacter(new Character("Rei Ayanami", "https://miro.medium.com/v2/resize:fit:1400/1*TVebZE0MHzu7mpFw_bCsrQ.jpeg", voiceActorOptional2.get()));
         NGE.addCharacter(new Character("Asuka Langley Soryu", "https://avatarfiles.alphacoders.com/292/thumb-1920-292454.png", voiceActorOptional1.get()));
@@ -119,6 +127,12 @@ public class DataLoader implements CommandLineRunner {
         CB.setImageUrl("https://w0.peakpx.com/wallpaper/699/834/HD-wallpaper-cowboy-bebop-2-bepop.jpg");
         CB.setNote(new Note(CB, "I love the music in this anime."));
 
+        try {
+            CB.setImageFromUrl("https://w0.peakpx.com/wallpaper/699/834/HD-wallpaper-cowboy-bebop-2-bepop.jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         CB.addCharacter(new Character("Spike Spiegel", "https://gifdb.com/images/thumbnail/cowboy-bebop-spike-spiegel-smoking-q4dyq11ymucdxhvz.gif", voiceActorOptional4.get()));
         CB.addCharacter(new Character("Faye Valentine", "https://upload.wikimedia.org/wikipedia/it/thumb/b/bc/Faye_Valentine.jpg/1200px-Faye_Valentine.jpg", voiceActorOptional2.get()));
         CB.addCharacter(new Character("Ed", "https://i.pinimg.com/originals/cd/5f/06/cd5f06b30f601abd994edbb23e1fbf0a.png", voiceActorOptional5.get()));
@@ -136,6 +150,12 @@ public class DataLoader implements CommandLineRunner {
         HxH.setImageUrl("https://wallpapers.com/images/hd/hunter-x-hunter-iphone-hv7a5cubr60hyllh.jpg");
         HxH.setNote(new Note(HxH, "I love the power system in this anime."));
 
+        try {
+            HxH.setImageFromUrl("https://wallpapers.com/images/hd/hunter-x-hunter-iphone-hv7a5cubr60hyllh.jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         HxH.addCharacter(new Character("Killua Zoldyck", "https://miro.medium.com/v2/resize:fit:700/1*7Qy6qbDkrIQ_7qPrnSqkiA.png", voiceActorOptional6.get()));
         HxH.addCharacter(new Character("Kurapika", "https://i.pinimg.com/736x/a3/ec/14/a3ec14fd55bae7683c5fa01a7acb7d77.jpg", voiceActorOptional7.get()));
         HxH.addCharacter(new Character("Gon Freecss", "https://wallpapers-clan.com/wp-content/uploads/2022/02/hxh-gon-and-killua-matching-pfp-17.jpg", voiceActorOptional8.get()));
@@ -151,6 +171,13 @@ public class DataLoader implements CommandLineRunner {
         JJK.setRating(Rating.MASTERPIECE);
         JJK.setUrl("https://www.netflix.com/title/81054889");
         JJK.setImageUrl("https://static.tnn.in/photo/104569494/104569494.jpg");
+
+        try {
+            JJK.setImageFromUrl("https://static.tnn.in/photo/104569494/104569494.jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         JJK.setNote(new Note(JJK, "I love the fight scenes in this anime."));
 
         JJK.addCharacter(new Character("Gojo Satoru", "https://avatarfiles.alphacoders.com/368/thumb-1920-368124.png", voiceActorOptional9.get()));
@@ -166,8 +193,14 @@ public class DataLoader implements CommandLineRunner {
         CSM.setDescription("A supernatural anime that follows the story of Denji.");
         CSM.setRating(Rating.MASTERPIECE);
         CSM.setUrl("https://www.netflix.com/title/81054889");
-        CSM.setImageUrl("https://c4.wallpaperflare.com/wallpaper/168/650/542/chainsaw-man-aki-hayakawa-hd-wallpaper-preview.jpg");
+        CSM.setImageUrl("https://m.media-amazon.com/images/I/81fsv1zxpqL._AC_UF894,1000_QL80_.jpg");
         CSM.setNote(new Note(CSM, "I love the fight scenes in this anime."));
+
+        try {
+            CSM.setImageFromUrl("https://m.media-amazon.com/images/I/81fsv1zxpqL._AC_UF894,1000_QL80_.jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         CSM.addCharacter(new Character("Makima", "https://i.redd.it/what-makes-makima-so-recognizable-and-stand-out-so-much-v0-m8foctf67rlc1.jpg?width=720&format=pjpg&auto=webp&s=add6b0bdac38ec70f0a39c3ce6b4685f1fba5570", voiceActorOptional12.get()));
         CSM.addCharacter(new Character("Power", "https://i.pinimg.com/736x/61/c5/6c/61c56c1fe22b5031736a410d35b3da85.jpg", voiceActorOptional13.get()));
@@ -186,6 +219,12 @@ public class DataLoader implements CommandLineRunner {
         CE.setImageUrl("https://i.pinimg.com/736x/dc/f7/74/dcf774b17773434a34193160811b9f5a.jpg");
         CE.setNote(new Note(CE, "The graphics in this anime are amazing."));
 
+        try {
+            CE.setImageFromUrl("https://i.pinimg.com/736x/dc/f7/74/dcf774b17773434a34193160811b9f5a.jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         CE.addCharacter(new Character("Lucy", "https://wallpapers-clan.com/wp-content/uploads/2022/11/cyberpunk-edgerunners-lucy-pfp-21.jpg", voiceActorOptional15.get()));
         CE.addCharacter(new Character("David Martivez", "https://i.pinimg.com/736x/6c/1d/5a/6c1d5a989a84900ae0c488b9e0c504f1.jpg", voiceActorOptional16.get()));
         CE.addCharacter(new Character("Rebecca", "https://i.pinimg.com/736x/c1/ee/f8/c1eef8ca624e401963ad76365efef100.jpg", voiceActorOptional17.get()));
@@ -202,6 +241,12 @@ public class DataLoader implements CommandLineRunner {
         HMC.setUrl("https://www.netflix.com/title/81054889");
         HMC.setImageUrl("https://m.media-amazon.com/images/I/51LcirCWCTL._AC_UF894,1000_QL80_.jpg");
         HMC.setNote(new Note(HMC, "Couldn't figure out the plot of this anime."));
+
+        try {
+            HMC.setImageFromUrl("https://m.media-amazon.com/images/I/51LcirCWCTL._AC_UF894,1000_QL80_.jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         HMC.addCharacter(new Character("Howl", "https://i.etsystatic.com/35550803/r/il/03d72d/3846156466/il_570xN.3846156466_qdfe.jpg", voiceActorOptional18.get()));
         HMC.addCharacter(new Character("Sophie", "https://i.pinimg.com/564x/40/67/03/4067035ae50d142e575e4abe8ae4f5f4.jpg", voiceActorOptional19.get()));
@@ -220,6 +265,12 @@ public class DataLoader implements CommandLineRunner {
         PB.setImageUrl("https://i.pinimg.com/originals/7f/d3/47/7fd347ae3a0cc930984a3d427fb6def5.jpg");
         PB.setNote(new Note(PB, "The twist in this anime was pretty good."));
 
+        try {
+            PB.setImageFromUrl("https://i.pinimg.com/originals/7f/d3/47/7fd347ae3a0cc930984a3d427fb6def5.jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         PB.addCharacter(new Character("Mima Kirigoe", "https://64.media.tumblr.com/326dc4490714fb6ce04a5e938604450e/tumblr_p6rhig5j841wr60xso1_400.jpg", voiceActorOptional21.get()));
         PB.addCharacter(new Character("Uchida Mamoru", "https://static1.personality-database.com/profile_images/2f8ce2c0f1ea448d89b91040f059114b.png", voiceActorOptional22.get()));
         PB.addCharacter(new Character("Rumi Hidaka", "https://thicc-af.mywaifulist.moe/waifus/2954/c2f73d1c8af1f444b2f5e77f315908296438adf54519789c0e2297d78271a045_thumb.jpeg", voiceActorOptional23.get()));
@@ -236,6 +287,12 @@ public class DataLoader implements CommandLineRunner {
         BG.setImageUrl("https://cdn.myanimelist.net/images/anime/1092/125295.jpg");
         BG.setNote(new Note(BG, "The plot of this anime was all over the place."));
 
+        try {
+            BG.setImageFromUrl("https://cdn.myanimelist.net/images/anime/1092/125295.jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         BG.addCharacter(new Character("Akira", "https://i.pinimg.com/originals/e2/2b/ad/e22bad8495a4845e78ae41541fa84f53.jpg", voiceActorOptional24.get()));
         BG.addCharacter(new Character("Sakuya", "https://i.pinimg.com/originals/a1/2e/f3/a12ef3e9327c2521fcddf0c4dd8918d6.jpg", voiceActorOptional25.get()));
         BG.addCharacter(new Character("Suzuran", "https://i.pinimg.com/736x/75/b3/b7/75b3b772f90f2c2a9f19eba0680adfd0.jpg", voiceActorOptional26.get()));
@@ -249,8 +306,14 @@ public class DataLoader implements CommandLineRunner {
         N.setDescription("A ninja anime that follows the story of Naruto Uzumaki.");
         N.setRating(Rating.OKAY);
         N.setUrl("https://www.netflix.com/title/81054889");
-        N.setImageUrl("https://rukminim2.flixcart.com/image/850/1000/xif0q/poster/v/p/c/small-naruto-hd-wallpaper-naruto1-ntees-original-imagnea9ftghc9ut.jpeg?q=90&crop=false");
+        N.setImageUrl("https://m.media-amazon.com/images/I/71WECnGLtIL._AC_UF894,1000_QL80_.jpg");
         N.setNote(new Note(N, "Pretty long anime. The fillers in this anime were annoying."));
+
+        try {
+            N.setImageFromUrl("https://m.media-amazon.com/images/I/71WECnGLtIL._AC_UF894,1000_QL80_.jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         N.addCharacter(new Character("Naruto Uzumaki", "https://i.pinimg.com/originals/ee/61/37/ee61374e60f036d0d605c37b3a7bee8a.jpg", voiceActorOptional27.get()));
         N.addCharacter(new Character("Sasuke Uchiha", "https://i.pinimg.com/564x/fd/d5/3b/fdd53bf7804d79e947641a46b7a6ae6a.jpg", voiceActorOptional28.get()));

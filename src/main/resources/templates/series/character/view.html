@@ -1,57 +1,61 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+
 <head>
     <meta charset="UTF-8">
     <title>View Character</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-          crossorigin="anonymous"
-          th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"
-    >
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"
-            th:href="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"
-    ></script>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<div class="container-fluid font-monospace mt-4">
-    <div class="row">
-        <div class="col-md-10 offset-md-1">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <h5>Anime Character Details:</h5>
+<section layout:fragment="content" class="w-75">
+    <div style="font-family: 'Arvo', sans-serif" class="p-5">
+        <div class="main-body d-flex flex-column gap-2 p-2 align-items-center justify-content-center mx-auto">
+            <h2 class="series-title w-100 text-center my-2" style="color: var(--text-black-color)">Anime Character
+                Details</h2>
+            <div class="w-100 p-4 position-relative"
+                 style="border: 5px solid var(--secondary-color); border-radius: 25px; background-color: rgba(233, 209, 245, 0.75);">
+                <div class="row">
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="w-75 p-3 my-2 d-flex flex-column align-items-center "
+                         style="border: 3px solid var(--primary-color); ">
+                        <div class="position-absolute" style="left: +10px; top: 10px; width: 75px; height: auto; border: 3px solid var(--secondary-color); border-radius: 10px; ">
+                            <h6 class="text-center mt-2" style="font-weight: bold;">ID:</h6>
+                            <p class="text-center" th:text="${character.id}" style="font-size: 1.2em;">Character ID</p>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 card m-2">
-
-                            <div class="card-header">
-                                <p class="card-title text-center" th:text="${character.name}">Character</p>
-                            </div>
-                            <div class="card-body d-flex flex-column align-items-center">
-                                <img th:src="${character.imageUrl}" alt="Character Image"
-                                     class="img-thumbnail object-fit-cover"
-                                     style="width: 150px; height: 150px;">
-                                <h6 class="text-center mt-2">Voice Actor:</h6>
-                                <p class="card-footer text-center" th:text="${voiceActor.name}">
-                                    Voice Actor
+                        <div class="text-center">
+                            <p class="mb-2" th:text="${character.name}" style="font-weight: bold; font-size: 2.5em;">
+                                Character Name</p>
+                        </div>
+                        <div class="d-flex flex-column align-items-center">
+                            <img th:src="${character.imageUrl}" alt="Character Image"
+                                 class="img-thumbnail object-fit-cover"
+                                 style="width: 200px; height: 200px;">
+                            <h6 class="text-center mt-2" style="font-weight: bold;">Voice Actor:</h6>
+                            <p class="text-center" th:text="${voiceActor.name}" style="font-size: 1.2em;">Voice Actor
+                                Name</p>
+                            <h6 class="text-center mt-2" style="font-weight: bold;">ID:</h6>
+                            <p class="text-center" th:text="${character.id}" style="font-size: 1.2em;">Character ID</p>
+                            <h6>Origin series:</h6>
+                            <a th:href="@{'/series/' + ${series.id.longValue()} + '/view'}">
+                                <p class="text-center mt-2" th:text="${series.title}"
+                                   style="font-size: 1.2em; text-decoration: underline; color: var(--text-black-color);">
+                                    Origin Series
                                 </p>
-                                <h6>ID:</h6>
-                                <p th:text="${character.id}"></p>
-                                <a href="#" th:href="@{'/series/' + ${series.id.longValue()} + '/view'}">
-                                    <p class="card-footer text-center" th:text="${series.title}">
-                                        Origin Series
-                                    </p>
-                                </a>
-                            </div>
-                            <a href="#" th:href="@{'/series/' + ${series.id.longValue()} + '/character/' + ${character.id.longValue()} + '/update'}">
-                                <button class="btn btn-primary">Edit</button>
+                            </a>
+                            <a th:href="@{'/series/' + ${series.id.longValue()} + '/character/' + ${character.id.longValue()} + '/update'}"
+                               class="btn mt-3"
+                               style="
+                               font-size: 2em;
+                               background-color: var(--primary-color);
+                               border: 3px solid var(--secondary-color);
+                               padding: 10px 20px;
+                               border-radius: 25px;
+                               color: var(--text-black-color);"
+                            >
+                                Edit
                             </a>
                         </div>
                     </div>
@@ -59,6 +63,6 @@
             </div>
         </div>
     </div>
-</div>
+</section>
 </body>
 </html>

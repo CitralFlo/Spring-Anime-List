@@ -1,6 +1,15 @@
 package dev.citralflo.animelist.model;
 
 import jakarta.persistence.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Data;
@@ -56,6 +65,24 @@ public class Series {
     public void addCharacter(Character character) {
         characters.add(character);
         character.setSeries(this);
+    }
+
+    public void setImageFromUrl(String imageUrl) throws IOException {
+        URL url = new URL(imageUrl);
+        String fileName = url.getFile();
+        Path tempFile = Files.createTempFile("temp", fileName.substring(fileName.lastIndexOf(".")));
+        try (InputStream in = url.openStream()) {
+            Files.copy(in, tempFile, StandardCopyOption.REPLACE_EXISTING);
+        }
+        File file = tempFile.toFile();
+        byte[] fileContent = Files.readAllBytes(file.toPath());
+        Byte[] byteObjects = new Byte[fileContent.length];
+        int i=0;
+        for(byte b: fileContent)
+            byteObjects[i++] = b;  // Autoboxing.
+        this.setImage(byteObjects);
+        Files.delete(tempFile);  // Delete the temporary file
+
     }
 
 }

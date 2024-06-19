@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Anime List</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<section layout:fragment="content" class="w-75">
+
+    <div style="font-family: 'Arvo', sans-serif" class="p-5">
+        <div class="main-body d-flex flex-column gap-2 p-2 align-items-center justify-content-center mx-auto">
+            <h1 th:text="${errorCode}">Error</h1>
+            <p th:text="${errorMessage}">Error message</p>
+            <p th:text="${exception}"></p>
+        </div>
+    </div>
+
+</section>
+</body>

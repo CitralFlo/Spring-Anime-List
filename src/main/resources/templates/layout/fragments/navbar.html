@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>NavBar</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div th:fragment="navbar" class="customNavbar d-flex align-items-center pt-3">
+    <div class="position-relative align-self-center mx-auto w-75">
+        <div class="justify-content-between"
+             style="
+                background: none;
+                border: 5px solid var(--secondary-color);
+                border-radius: 25px;
+                width: 75vw;
+                margin: 0 auto;
+                padding: 10px;
+                display: flex;
+                flex-direction: row;
+                color: var(--text-white-color);
+            ">
+            <div>
+                <a href="http://localhost:8080">
+                    <img th:src="@{/images/logo.png}" alt="logo" style="width: 150px; height: auto;">
+                </a>
+            </div>
+            <div class="my-auto">
+                <a th:href="@{/series/random}" class="p-3 text-black text-decoration-none" style="border: 5px solid var(--secondary-color);
+                border-radius: 25px;">Random</a>
+            </div>
+            <div class="my-auto text-decoration-none">
+                <a href="https://github.com/CitralFlo" class="p-3 text-black text-decoration-none" style="border: 5px solid var(--secondary-color);
+                border-radius: 25px;">
+                    CitralFlo
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
