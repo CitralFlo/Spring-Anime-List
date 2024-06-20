@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>NavBar</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
@@ -7,12 +7,11 @@
 <body>
 <div th:fragment="navbar" class="customNavbar d-flex align-items-center pt-3">
     <div class="position-relative align-self-center mx-auto w-75">
-        <div class="justify-content-between"
+        <div class="justify-content-between w-100 px-1"
              style="
                 background: none;
                 border: 5px solid var(--secondary-color);
                 border-radius: 25px;
-                width: 75vw;
                 margin: 0 auto;
                 padding: 10px;
                 display: flex;
