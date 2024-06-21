@@ -12,24 +12,20 @@
 <section layout:fragment="content" class="w-75">
     <div style="font-family: 'Arvo', sans-serif" class="p-5">
         <div class="main-body d-flex flex-column gap-2 p-2 align-items-center justify-content-center mx-auto">
-            <div class="row">
+            <div class="row align-items-center">
                 <!-- Left Side - Welcome Sign and Description -->
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <h2>Welcome!</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum vel nibh at lorem venenatis lobortis.</p>
-                    </div>
-                </div>
-
-                <!-- Right Side - Hero Section -->
-                <div class="col-md-6">
-                    <div class="hero-section">
-                        <img src="/path/to/hero-image.jpg" alt="Hero Image">
+                <div class="col-md-6 justify-content-center align-items-center">
                         <div class="hero-content">
                             <h1>Explore Anime World</h1>
                             <p>Discover your favorite anime series and characters.</p>
                             <a href="/series/random" class="btn btn-primary">Get Started</a>
                         </div>
+                </div>
+
+                <!-- Right Side - Hero Section -->
+                <div class="col-md-6 mb-5">
+                    <div class="hero-section">
+                        <img th:src="@{/images/hero.jpg}" class="w-100" alt="Hero Image">
                     </div>
                 </div>
             </div>

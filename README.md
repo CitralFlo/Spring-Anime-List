@@ -1,5 +1,6 @@
 # Spring Anime List
 
+![banner.png](assets/banner.png)
 [![CircleCI](https://dl.circleci.com/status-badge/img/circleci/A7AJ3y7wZyRYtWeMBd3cNh/8av1QkQYyMH8QbMWVzJECS/tree/main.svg?style=svg&circle-token=CCIPRJ_5yZmxCsPuTK8J59aJ6tLX6_ee8e6bfdbd22fe06ac52556f590d07f3f08e6b37)](https://dl.circleci.com/status-badge/redirect/circleci/A7AJ3y7wZyRYtWeMBd3cNh/8av1QkQYyMH8QbMWVzJECS/tree/main)
 
 ## Description
@@ -18,7 +19,7 @@ Spring Anime List is a demo web application for rating and reviewing anime serie
 
 - **Backend**: Java 11, Spring Boot, Spring Data JPA
 - **Frontend**: Thymeleaf, Thymeleaf Layout Dialect, Bootstrap, HTML, CSS
-- **Database**: MySQL
+- **Database**: Spring Data JPA, H2 Database
 - **Utilities**: Lombok
 
 ## Setup
